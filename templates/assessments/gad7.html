@@ -1,0 +1,29 @@
+
+<html>
+<h2>GAD-7 Anxiety Assessment</h2>
+<p>Over the last 2 weeks, how often have you been bothered by the following problems?</p>
+
+<form method="post">
+{% csrf_token %}
+
+
+{% for q in questions %}
+<p><strong>{{ forloop.counter }}. {{ q }}</strong></p>
+<select name="q{{ forloop.counter }}" required>
+    <option value="0">Not at all</option>
+    <option value="1">Several days</option>
+    <option value="2">More than half the days</option>
+    <option value="3">Nearly every day</option>
+</select>
+<br><br>
+{% endfor %}
+
+<button type="submit">Submit Assessment</button>
+</form>
+
+
+<p style="font-size:12px; color:gray;">
+This self-assessment is not a medical diagnosis. It is intended for educational and screening purposes only.
+</p>
+
+</html>

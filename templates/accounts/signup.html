@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+</head>
+<body>
+
+<h2>Signup</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input name="username" placeholder="Username" required><br><br>
+    <input name="email" type="email" placeholder="Email" required><br><br>
+    <input name="password" type="password" placeholder="Password" required><br><br>
+
+    <select name="role">
+        <option value="student">Student</option>
+        <option value="counsellor">Counsellor</option>
+        <option value="peer">Peer Volunteer</option>
+    </select><br><br>
+
+    <button type="submit">Create Account</button>
+</form>
+
+{% for message in messages %}
+<p style="color:red">{{ message }}</p>
+{% endfor %}
+
+</body>
+</html>

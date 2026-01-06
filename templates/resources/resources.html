@@ -1,0 +1,25 @@
+<h2>Mental Health Resources</h2>
+
+{% if severity %}
+<p>Recommended based on your recent assessment (Severity: {{ severity|title }})</p>
+{% else %}
+<p>General mental health resources</p>
+{% endif %}
+
+<ul>
+{% for r in resources %}
+    <li>
+        <strong>{{ r.title }}</strong><br>
+        {{ r.description }}<br>
+        <em>Type:</em> {{ r.resource_type }}<br>
+        <a href="{{ r.link }}" target="_blank">Open Resource</a>
+    </li>
+    <br>
+{% empty %}
+    <p>No resources available.</p>
+{% endfor %}
+</ul>
+
+<p>
+    <a href="/resources/community/">Explore Peer Support Communities</a>
+</p>

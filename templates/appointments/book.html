@@ -1,0 +1,40 @@
+<h2>Book Counselling Appointment</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>Select Counsellor</label><br>
+    <select name="counsellor" required>
+        {% for c in counsellors %}
+            <option value="{{ c.id }}">{{ c.username }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Date</label><br>
+    <input type="date" name="date" required><br><br>
+
+    <label>Time Slot</label><br>
+    <select name="time_slot">
+        <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+        <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+        <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM</option>
+    </select><br><br>
+
+    <button type="submit">Book Appointment</button>
+</form>
+
+{% for message in messages %}
+<p style="color:green;">{{ message }}</p>
+{% endfor %}
+
+
+<h3>Your Guidance Messages</h3>
+
+{% for a in request.user.appointments.all %}
+    {% if a.guidance_message %}
+        <p>
+            <strong>{{ a.date }} ({{ a.time_slot }})</strong><br>
+            {{ a.guidance_message }}
+        </p>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,29 @@
+<h2>Your Assessment History</h2>
+
+{% if assessments %}
+<table border="1">
+    <tr>
+        <th>Test</th>
+        <th>Score</th>
+        <th>Severity</th>
+        <th>Date</th>
+    </tr>
+    {% for a in assessments %}
+    <tr>
+        <td>{{ a.test_type }}</td>
+        <td>{{ a.score }}</td>
+        <td>{{ a.severity }}</td>
+        <td>{{ a.created_at|date:"d M Y, H:i" }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No assessments taken yet.</p>
+{% endif %}
+
+
+<p>
+    <a href="/assessments/download-pdf/">
+        Download Assessment Report (PDF)
+    </a>
+</p>

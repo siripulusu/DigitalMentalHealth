@@ -1,0 +1,21 @@
+<h2>Peer Support Communities</h2>
+
+<p>
+These peer support spaces are facilitated externally to ensure privacy.
+You can share experiences or seek support anonymously.
+</p>
+
+<ul>
+{% for c in links %}
+    <li>
+        <strong>{{ c.title }}</strong><br>
+        {{ c.description }}<br>
+        <a href="{{ c.form_link }}" target="_blank">
+            Participate in Community
+        </a>
+    </li>
+    <br>
+{% empty %}
+    <p>No peer communities available yet.</p>
+{% endfor %}
+</ul>

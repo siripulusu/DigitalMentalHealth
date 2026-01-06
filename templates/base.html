@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-[var(--bg)] text-[var(--text)]">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Digital Mental Health{% endblock %}</title>
+
+    <!-- Tailwind CDN (safe for academic use) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Theme Variables -->
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --text: #0f172a;
+            --card: #ffffff;
+            --accent: #2563eb;
+        }
+        .dark {
+            --bg: #0f172a;
+            --text: #e5e7eb;
+            --card: #020617;
+            --accent: #38bdf8;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen transition-all duration-300">
+
+<!-- NAVBAR -->
+<nav class="flex justify-between items-center px-6 py-4 bg-[var(--card)] shadow">
+    <h1 class="font-bold text-lg">Mental Health Support</h1>
+
+    <div class="flex gap-4 items-center">
+        <a href="/" class="hover:text-[var(--accent)]">Home</a>
+        <a href="/resources/" class="hover:text-[var(--accent)]">Resources</a>
+        <a href="/chat/" class="hover:text-[var(--accent)]">Chat</a>
+
+        {% if user.is_authenticated %}
+            <a href="/auth/logout/" class="hover:text-red-500">Logout</a>
+        {% else %}
+            <a href="/auth/login/" class="hover:text-[var(--accent)]">Login</a>
+        {% endif %}
+
+        <!-- Theme Toggle -->
+        <button onclick="toggleTheme()" class="px-3 py-1 rounded bg-[var(--accent)] text-white">
+            Toggle
+        </button>
+    </div>
+</nav>
+
+<!-- PAGE CONTENT -->
+<main class="p-6">
+    {% block content %}{% endblock %}
+</main>
+
+<script>
+function toggleTheme() {
+    document.documentElement.classList.toggle('dark');
+    localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+}
+if (localStorage.theme === 'dark') {
+    document.documentElement.classList.add('dark');
+}
+</script>
+
+</body>
+</html>

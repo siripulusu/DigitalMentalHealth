@@ -1,0 +1,14 @@
+<h2>Add Guidance Message</h2>
+
+<p>
+This message will be visible to the student.
+No replies are allowed.
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    <textarea name="guidance" rows="4" cols="50"
+              placeholder="Enter short guidance..." required></textarea>
+    <br><br>
+    <button type="submit">Save</button>
+</form>

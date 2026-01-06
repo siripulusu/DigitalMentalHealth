@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold">Student Dashboard</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+            Manage your assessments, resources, and support in one place
+        </p>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Assessments Card -->
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow hover:shadow-lg transition">
+            <div class="flex items-center gap-3 mb-3">
+                <!-- SVG Icon -->
+                <svg class="w-7 h-7 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 5h6M9 9h6M9 13h6M5 5h.01M5 9h.01M5 13h.01" />
+                </svg>
+                <h2 class="text-lg font-semibold">Self Assessments</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Take PHQ-9 and GAD-7 assessments and track your mental health trends.
+            </p>
+
+            <div class="flex gap-3">
+                <a href="/assessments/phq9/"
+                   class="px-4 py-2 rounded bg-[var(--accent)] text-white text-sm
+                          hover:shadow-[0_0_12px_var(--accent)] transition">
+                    Take Test
+                </a>
+
+                <a href="/assessments/history/"
+                   class="px-4 py-2 rounded border border-gray-300 dark:border-gray-600
+                          text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    View History
+                </a>
+            </div>
+        </div>
+
+        <!-- Resources Card -->
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow hover:shadow-lg transition">
+            <div class="flex items-center gap-3 mb-3">
+                <svg class="w-7 h-7 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          d="M12 6v6l4 2M20 12a8 8 0 11-16 0 8 8 0 0116 0z" />
+                </svg>
+                <h2 class="text-lg font-semibold">Personalized Resources</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Access videos, guides, and tools recommended based on your assessments.
+            </p>
+
+            <a href="/resources/"
+               class="inline-block px-4 py-2 rounded bg-[var(--accent)] text-white text-sm
+                      hover:shadow-[0_0_12px_var(--accent)] transition">
+                View Resources
+            </a>
+        </div>
+
+        <!-- Chatbot Card -->
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow hover:shadow-lg transition">
+            <div class="flex items-center gap-3 mb-3">
+                <svg class="w-7 h-7 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          d="M8 10h8M8 14h5M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.83L3 20l1.24-3.72A7.94 7.94 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                <h2 class="text-lg font-semibold">AI Support Chat</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Talk to the AI support bot for guidance and coping strategies.
+            </p>
+
+            <a href="/chat/"
+               class="inline-block px-4 py-2 rounded bg-[var(--accent)] text-white text-sm
+                      hover:shadow-[0_0_12px_var(--accent)] transition">
+                Open Chat
+            </a>
+        </div>
+
+        <!-- Appointments Card -->
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow hover:shadow-lg transition">
+            <div class="flex items-center gap-3 mb-3">
+                <svg class="w-7 h-7 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          d="M8 7V3m8 4V3M4 11h16M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <h2 class="text-lg font-semibold">Counselling Appointments</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Book counselling sessions and view guidance messages from counsellors.
+            </p>
+
+            <a href="/appointments/book/"
+               class="inline-block px-4 py-2 rounded bg-[var(--accent)] text-white text-sm
+                      hover:shadow-[0_0_12px_var(--accent)] transition">
+                Book Appointment
+            </a>
+        </div>
+
+        <!-- Reports Card -->
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow hover:shadow-lg transition">
+            <div class="flex items-center gap-3 mb-3">
+                <svg class="w-7 h-7 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 17v-6h6v6m-9 0h12M9 7h6" />
+                </svg>
+                <h2 class="text-lg font-semibold">Download Reports</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Download your assessment history as a PDF report.
+            </p>
+
+            <a href="/assessments/download-pdf/"
+               class="inline-block px-4 py-2 rounded bg-[var(--accent)] text-white text-sm
+                      hover:shadow-[0_0_12px_var(--accent)] transition">
+                Download PDF
+            </a>
+        </div>
+
+        <!-- Peer Support Card -->
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow hover:shadow-lg transition">
+            <div class="flex items-center gap-3 mb-3">
+                <svg class="w-7 h-7 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          d="M17 20h5v-2a4 4 0 00-4-4h-1M7 20H2v-2a4 4 0 014-4h1M12 12a4 4 0 100-8 4 4 0 000 8z" />
+                </svg>
+                <h2 class="text-lg font-semibold">Peer Support</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Participate in peer support communities through external forms.
+            </p>
+
+            <a href="/resources/community/"
+               class="inline-block px-4 py-2 rounded bg-[var(--accent)] text-white text-sm
+                      hover:shadow-[0_0_12px_var(--accent)] transition">
+                View Communities
+            </a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

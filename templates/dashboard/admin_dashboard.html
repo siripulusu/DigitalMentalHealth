@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold">Admin Analytics Dashboard</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+            Anonymized system-level analytics and statistics
+        </p>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow">
+            <h3 class="text-sm text-gray-500 dark:text-gray-400">Total Assessments</h3>
+            <p class="text-3xl font-bold mt-2">{{ total_assessments }}</p>
+        </div>
+
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow">
+            <h3 class="text-sm text-gray-500 dark:text-gray-400">Appointments Booked</h3>
+            <p class="text-3xl font-bold mt-2">{{ appointment_stats.total }}</p>
+        </div>
+
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow">
+            <h3 class="text-sm text-gray-500 dark:text-gray-400">Completed Sessions</h3>
+            <p class="text-3xl font-bold mt-2">{{ appointment_stats.completed }}</p>
+        </div>
+
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- Severity Distribution -->
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow">
+            <h2 class="font-semibold mb-4">Assessment Severity Distribution</h2>
+            <canvas id="severityChart" height="120"></canvas>
+        </div>
+
+        <!-- Appointment Status -->
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow">
+            <h2 class="font-semibold mb-4">Appointment Status</h2>
+            <canvas id="appointmentChart" height="120"></canvas>
+        </div>
+
+        <!-- Resource Usage -->
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow lg:col-span-2">
+            <h2 class="font-semibold mb-4">Resource Usage</h2>
+            <canvas id="resourceChart" height="120"></canvas>
+        </div>
+
+    </div>
+
+    <!-- PDF Export -->
+    <div class="mt-8">
+        <a href="/dashboard/download-pdf/"
+           class="inline-block px-5 py-2 rounded bg-[var(--accent)] text-white
+                  hover:shadow-[0_0_12px_var(--accent)] transition">
+            Download Admin Summary (PDF)
+        </a>
+    </div>
+
+</div>
+
+<!-- CHART SCRIPTS -->
+<script>
+/* Severity Chart */
+new Chart(document.getElementById('severityChart'), {
+    type: 'bar',
+    data: {
+        labels: [{% for s in severity_data %}"{{ s.severity }}",{% endfor %}],
+        datasets: [{
+            label: 'Assessments',
+            data: [{% for s in severity_data %}{{ s.count }},{% endfor %}],
+            backgroundColor: '#38bdf8'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } }
+    }
+});
+
+/* Appointment Chart */
+new Chart(document.getElementById('appointmentChart'), {
+    type: 'pie',
+    data: {
+        labels: ['Booked', 'Completed'],
+        datasets: [{
+            data: [
+                {{ appointment_stats.booked }},
+                {{ appointment_stats.completed }}
+            ],
+            backgroundColor: ['#fbbf24', '#22c55e']
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+
+/* Resource Usage Chart */
+new Chart(document.getElementById('resourceChart'), {
+    type: 'bar',
+    data: {
+        labels: [{% for r in resource_usage %}"{{ r.title }}",{% endfor %}],
+        datasets: [{
+            label: 'Usage Count',
+            data: [{% for r in resource_usage %}{{ r.count }},{% endfor %}],
+            backgroundColor: '#a78bfa'
+        }]
+    },
+    options: {
+        responsive: true,
+        indexAxis: 'y',
+        plugins: { legend: { display: false } }
+    }
+});
+</script>
+
+{% endblock %}

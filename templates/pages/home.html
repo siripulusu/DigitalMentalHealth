@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="grid md:grid-cols-3 gap-6">
+    <div class="bg-[var(--card)] p-6 rounded shadow hover:shadow-lg transition">
+        <h2 class="font-semibold mb-2">Self Assessments</h2>
+        <p>PHQ-9 and GAD-7 screenings</p>
+        <a href="/assessments/phq9/" class="text-[var(--accent)]">Start</a>
+    </div>
+
+    <div class="bg-[var(--card)] p-6 rounded shadow hover:shadow-lg transition">
+        <h2 class="font-semibold mb-2">AI Support</h2>
+        <p>Chat-based mental health guidance</p>
+        <a href="/chat/" class="text-[var(--accent)]">Open Chat</a>
+    </div>
+
+    <div class="bg-[var(--card)] p-6 rounded shadow hover:shadow-lg transition">
+        <h2 class="font-semibold mb-2">Appointments</h2>
+        <p>Book counselling sessions</p>
+        <a href="/appointments/book/" class="text-[var(--accent)]">Book</a>
+    </div>
+</div>
+{% endblock %}

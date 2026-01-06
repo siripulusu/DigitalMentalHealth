@@ -1,0 +1,40 @@
+
+<div style="max-width: 600px; margin: auto; padding: 20px; font-family: Arial, sans-serif;">
+    <h2>AI Mental Health Support</h2>
+
+    <div id="chat-container" style="border: 1px solid #ddd; padding: 20px; border-radius: 10px; background-color: #f9f9f9; min-height: 200px; margin-bottom: 20px;">
+        {% if user_message %}
+            <p><strong>You:</strong> {{ user_message }}</p>
+        {% endif %}
+
+        {% if response %}
+            <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                <strong>Chatbot:</strong> {{ response }}
+            </div>
+        {% else %}
+            <p style="color: gray;">Hello! How are you feeling today?</p>
+        {% endif %}
+
+        {% if emergency %}
+            <div style="margin-top: 20px; padding: 15px; background-color: #fee2e2; border: 1px solid #ef4444; color: #b91c1c; border-radius: 8px;">
+                <strong>Emergency Assistance Required:</strong>
+                <p>Please contact a mental health helpline immediately.</p>
+                <p><strong>India Helpline: 9152987821</strong></p>
+            </div>
+        {% endif %}
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="message" rows="4" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;" 
+                  placeholder="Type how you are feeling..." required></textarea>
+        <br><br>
+        <button type="submit" style="padding: 10px 25px; background-color: #2563eb; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+            Send Message
+        </button>
+    </form>
+</div>
+
+<p>
+    <a href="/resources/">Explore Helpful Resources</a>
+</p>

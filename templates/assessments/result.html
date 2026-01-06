@@ -1,0 +1,15 @@
+<h2>{{ test }} Result</h2>
+<p>Score: {{ score }}</p>
+<p>Severity Level: <strong>{{ severity }}</strong></p>
+
+{% if severity in "Severe Moderately Severe" %}
+<p style="color:red;">
+If you are feeling overwhelmed, please consider reaching out to a mental health professional or helpline.
+</p>
+{% endif %}
+
+<a href="/resources/">View Recommended Resources</a>
+
+<p>
+    <a href="/assessments/history/">View My Assessment History</a>
+</p>
