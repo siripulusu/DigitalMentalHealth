@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect , get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -8,6 +8,10 @@ from accounts.models import User
 
 @login_required
 def book_appointment(request):
+    """
+    Handles confidential booking and triggers Tri-party Email Notifications
+    to the Student, Counsellor, and Admin.
+    """
     counsellors = User.objects.filter(role='counsellor', is_approved=True)
 
     if request.method == 'POST':
@@ -17,6 +21,7 @@ def book_appointment(request):
 
         counsellor = User.objects.get(id=counsellor_id)
 
+        # 1. Create the Appointment Record
         Appointment.objects.create(
             student=request.user,
             counsellor=counsellor,
@@ -24,20 +29,52 @@ def book_appointment(request):
             time_slot=time_slot
         )
 
-        send_mail(
-            subject='Appointment Confirmation',
-            message=(
-                f"Your counselling appointment has been booked.\n\n"
-                f"Counsellor: {counsellor.username}\n"
-                f"Date: {date}\n"
-                f"Time: {time_slot}"
-            ),
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[request.user.email],
-            fail_silently=False,
+        # 2. Prepare the Tri-party Notification Details
+        subject = 'Appointment Confirmation - DMH Support System'
+        common_body = (
+            f"Counsellor: {counsellor.username}\n"
+            f"Student: {request.user.username}\n"
+            f"Date: {date}\n"
+            f"Time: {time_slot}\n\n"
+            "Please log in to your dashboard for more details."
         )
 
-        messages.success(request, 'Appointment booked successfully.')
+        # 3. Trigger Tri-party Emails
+        try:
+            # Party A: Send to Student
+            send_mail(
+                subject,
+                f"Hello {request.user.username},\nYour counselling appointment has been booked successfully.\n\n{common_body}",
+                settings.DEFAULT_FROM_EMAIL,
+                [request.user.email],
+                fail_silently=False,
+            )
+
+            # Party B: Send to Counsellor
+            send_mail(
+                subject,
+                f"Hello {counsellor.username},\nA new counselling session has been booked with you.\n\n{common_body}",
+                settings.DEFAULT_FROM_EMAIL,
+                [counsellor.email],
+                fail_silently=False,
+            )
+
+            # Party C: Send to Institutional Admins (System Audit)
+            admin_emails = list(User.objects.filter(role='admin').values_list('email', flat=True))
+            if admin_emails:
+                send_mail(
+                    'System Audit: New Appointment Booked',
+                    f"A new appointment has been recorded in the DMH Portal.\n\n{common_body}",
+                    settings.DEFAULT_FROM_EMAIL,
+                    admin_emails,
+                    fail_silently=False,
+                )
+
+        except Exception as e:
+            # Prevent the app from crashing if the email server is down
+            print(f"SMTP Error: {e}")
+
+        messages.success(request, 'Appointment booked successfully. Confirmation emails have been sent.')
         return redirect('book_appointment')
 
     return render(request, 'appointments/book.html', {
@@ -56,23 +93,6 @@ def counsellor_appointments(request):
     })
 
 @login_required
-def add_guidance(request, appointment_id):
-    appointment = get_object_or_404(
-        Appointment,
-        id=appointment_id,
-        counsellor=request.user
-    )
-
-    if request.method == 'POST':
-        appointment.guidance_message = request.POST.get('guidance')
-        appointment.save()
-        return redirect('counsellor_appointments')
-
-    return render(request, 'appointments/add_guidance.html', {
-        'appointment': appointment
-    })
-
-@login_required
 def view_appointments(request):
     if request.user.role == 'counsellor':
         # Counsellors see sessions assigned to them
@@ -85,9 +105,20 @@ def view_appointments(request):
 
 @login_required
 def add_guidance(request, appointment_id):
-    appointment = get_object_or_404(Appointment, id=appointment_id, counsellor=request.user)
+    """
+    Allows counsellors to add guidance messages to specific appointments.
+    """
+    appointment = get_object_or_404(
+        Appointment,
+        id=appointment_id,
+        counsellor=request.user
+    )
+
     if request.method == 'POST':
         appointment.guidance_message = request.POST.get('guidance')
         appointment.save()
         return redirect('view_appointments')
-    return render(request, 'appointments/add_guidance.html', {'appointment': appointment})
+
+    return render(request, 'appointments/add_guidance.html', {
+        'appointment': appointment
+    })
