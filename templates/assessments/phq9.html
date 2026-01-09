@@ -1,24 +1,91 @@
-<html><h2>PHQ-9 Depression Assessment</h2>
-<p>Over the last 2 weeks, how often have you been bothered by any of the following problems?</p>
+{% extends request.user.is_authenticated|yesno:"base2.html,base.html" %}
+{% block title %}PHQ-9 Assessment | Digital Mental Health{% endblock %}
 
-<form method="post">
-{% csrf_token %}
+{% block content %}
+<section class="max-w-4xl mx-auto animate-fade-in pb-20">
+    <div class="mb-12">
+        <div class="flex items-center gap-4 mb-4">
+            <a href="/assessments/" class="p-2 hover:bg-teal-50 rounded-full transition text-gray-400">
+                <i class="fa-solid fa-chevron-left text-xl"></i>
+            </a>
+            <h1 class="text-3xl font-extrabold text-gray-800">
+                PHQ-9 <span class="text-teal-600">Depression Assessment</span>
+            </h1>
+        </div>
+        <div class="bg-teal-50 border-l-4 border-teal-500 p-6 rounded-r-2xl shadow-sm">
+            <p class="text-teal-900 font-medium italic">
+                Over the last 2 weeks, how often have you been bothered by the following problems?
+            </p>
+        </div>
+    </div>
 
+    <div class="mb-10 px-2">
+        <div class="flex justify-between items-end mb-2">
+            <span id="progressPercent" class="text-2xl font-black text-gray-800">0%</span>
+            <span id="questionCount" class="text-sm font-bold text-gray-400">0 of {{ questions|length }} Answered</span>
+        </div>
+        <div class="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
+            <div id="progressBar" class="bg-teal-500 h-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+    </div>
 
-{% for q in questions %}
-<p><strong>{{ forloop.counter }}. {{ q }}</strong></p>
-<select name="q{{ forloop.counter }}" required>
-    <option value="0">Not at all</option>
-    <option value="1">Several days</option>
-    <option value="2">More than half the days</option>
-    <option value="3">Nearly every day</option>
-</select>
-<br><br>
-{% endfor %}
+    <form method="post" class="space-y-8" id="phqForm">
+        {% csrf_token %}
+        {% for q in questions %}
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm question-card group">
+            <div class="flex gap-5 mb-8">
+                <div class="flex-shrink-0 w-10 h-10 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center font-black group-hover:bg-teal-600 group-hover:text-white transition-all">
+                    {{ forloop.counter }}
+                </div>
+                <p class="text-lg font-bold text-gray-800 pt-1">{{ q }}</p>
+            </div>
 
-<button type="submit">Submit Assessment</button>
-</form>
-<p style="font-size:12px; color:gray;">
-This self-assessment is not a medical diagnosis. It is intended for educational and screening purposes only.
-</p>
-</html>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {% for val, text in options_list %}
+                <label class="relative group cursor-pointer">
+                    <input type="radio" name="q{{ forloop.parentloop.counter }}" value="{{ val }}" required class="absolute opacity-0 peer">
+                    <div class="p-4 border-2 border-gray-100 rounded-2xl text-center transition-all peer-checked:border-teal-600 peer-checked:bg-teal-50 hover:border-teal-200">
+                        <span class="block text-sm font-bold text-gray-500 peer-checked:text-teal-700">{{ text }}</span>
+                    </div>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="sticky bottom-6 z-30 bg-white/90 backdrop-blur-xl p-6 rounded-3xl border shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+            <p class="text-sm text-gray-500 italic">{% if not user.is_authenticated %}Anonymous Mode: Results won't be saved.{% else %}Data will be saved to your health trends.{% endif %}</p>
+            <button type="submit" class="px-12 py-4 rounded-2xl bg-teal-700 text-white text-lg font-black shadow-lg hover:bg-teal-800 transition-all flex items-center gap-3">
+                Submit Assessment <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </form>
+</section>
+
+<script>
+    const form = document.getElementById('phqForm');
+    const progressBar = document.getElementById('progressBar');
+    const progressPercent = document.getElementById('progressPercent');
+    const questionCountText = document.getElementById('questionCount');
+    const totalQuestions = {{ questions|length }};
+
+    form.addEventListener('change', () => {
+        const answered = new Set();
+        form.querySelectorAll('input[type="radio"]:checked').forEach(input => answered.add(input.name));
+        const count = answered.size;
+        const percentage = Math.round((count / totalQuestions) * 100);
+        
+        progressBar.style.width = `${percentage}%`;
+        progressPercent.innerText = `${percentage}%`;
+        questionCountText.innerText = `${count} of ${totalQuestions} Answered`;
+        
+        if(percentage === 100) progressBar.classList.replace('bg-teal-500', 'bg-emerald-500');
+    });
+</script>
+
+<style>
+    .animate-fade-in { animation: fadeIn 0.7s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    label:has(input:checked) { transform: scale(1.05); }
+</style>
+{% endblock %}

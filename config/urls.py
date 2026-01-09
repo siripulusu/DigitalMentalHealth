@@ -18,6 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from accounts.views import CustomPasswordResetView
 from django.contrib.auth import views as auth_views
+from django.urls import path
+from appointments import views as appt_views
+from resources import views as res_views
+from dashboard import views as dash_views
 
 
 urlpatterns = [
@@ -49,4 +53,8 @@ urlpatterns = [
     path('chat/', include('chatbot.urls')),
     path('resources/', include('resources.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('appointments/', appt_views.view_appointments, name='view_appointments'),
+    path('appointments/guidance/<int:appointment_id>/', appt_views.add_guidance, name='add_guidance'),
+    path('dashboard/counsellor/resources/', res_views.manage_resources, name='manage_resources'),
+    path('dashboard/counsellor/assessments/', dash_views.counsellor_assessments, name='counsellor_assessments'),
 ]

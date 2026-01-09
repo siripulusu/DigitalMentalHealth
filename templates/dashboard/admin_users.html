@@ -1,0 +1,78 @@
+{% extends "base2.html" %}
+{% block content %}
+<div class="max-w-7xl mx-auto pb-20 animate-fade-in">
+    <div class="flex justify-between items-center mb-10">
+        <div>
+            <h1 class="text-3xl font-black text-gray-800">Entity <span class="text-teal-600">Registry</span></h1>
+            <p class="text-xs text-gray-400 font-bold uppercase tracking-widest">System Administration</p>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-[2.5rem] border border-gray-100 shadow-xl overflow-hidden">
+        <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-2xl mb-12 animate-fade-in">
+    <h3 class="text-sm font-black text-gray-400 uppercase tracking-widest mb-6">Register New System Entity</h3>
+    <form method="POST" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="add_user">
+        <input type="text" name="username" placeholder="Username" class="p-4 bg-gray-50 rounded-2xl outline-none font-bold text-sm" required>
+        <input type="email" name="email" placeholder="Email" class="p-4 bg-gray-50 rounded-2xl outline-none font-bold text-sm" required>
+        <input type="password" name="password" placeholder="Temporary Password" class="p-4 bg-gray-50 rounded-2xl outline-none font-bold text-sm" required>
+        <select name="role" class="p-4 bg-gray-50 rounded-2xl outline-none font-bold text-sm text-gray-500">
+            <option value="student">Student</option>
+            <option value="counsellor">Counsellor</option>
+            <option value="peer">Peer Volunteer</option>
+        </select>
+        <button type="submit" class="md:col-span-4 py-4 bg-gray-900 text-white rounded-2xl font-black shadow-xl hover:bg-black transition">
+            Initialize & Verify User
+        </button>
+    </form>
+</div>
+        <table class="w-full text-left">
+            <thead class="bg-gray-50/50">
+                <tr class="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                    <th class="p-6">Identification</th>
+                    <th class="p-6">Designation</th>
+                    <th class="p-6">Activity Logs</th>
+                    <th class="p-6 text-right">Operations</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                {% for u in users %}
+                <tr class="hover:bg-teal-50/20 transition group">
+                    <td class="p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-teal-600 text-white rounded-xl flex items-center justify-center font-bold shadow-lg shadow-teal-100">
+                                {{ u.username|first|upper }}
+                            </div>
+                            <div>
+                                <div class="font-black text-gray-800">{{ u.username }}</div>
+                                <div class="text-[10px] text-gray-400">{{ u.email }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-6">
+                        <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase bg-gray-100 text-gray-500">{{ u.role }}</span>
+                    </td>
+                    <td class="p-6">
+                        <div class="text-[10px] font-black text-gray-800 uppercase">Logins: {{ u.login_count }}</div>
+                        <div class="text-[9px] text-gray-400">Last: {{ u.last_login|date:"d M, H:i"|default:"Never" }}</div>
+                    </td>
+                    <td class="p-6 text-right">
+                        <div class="flex justify-end gap-2">
+                            <a href="{% url 'admin_edit_user' u.id %}" class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center hover:bg-indigo-600 hover:text-white transition shadow-sm">
+                                <i class="fa-solid fa-user-pen text-[10px]"></i>
+                            </a>
+                            <form method="POST" class="inline">
+                                {% csrf_token %}<input type="hidden" name="user_id" value="{{ u.id }}">
+                                {% if not u.is_approved %}<button name="action" value="approve" class="w-8 h-8 bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-600 hover:text-white transition"><i class="fa-solid fa-check text-[10px]"></i></button>{% endif %}
+                                <button name="action" value="delete" onclick="return confirm('Erase Entity?')" class="w-8 h-8 bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-600 hover:text-white transition"><i class="fa-solid fa-trash-can text-[10px]"></i></button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

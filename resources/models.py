@@ -20,7 +20,7 @@ class Resource(models.Model):
 
     title = models.CharField(max_length=200)
     description = models.TextField()
-    resource_type = models.CharField(max_length=20)  # video / audio / guide
+    resource_type = models.CharField(max_length=20, default='guide') # video / audio / guide
     link = models.URLField()
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     severity = models.CharField(max_length=20, choices=SEVERITY_CHOICES, default='all')
@@ -32,7 +32,7 @@ class Resource(models.Model):
 class CommunityLink(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    form_link = models.URLField()
+    form_link = models.URLField() # This matches your logic for external forms
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

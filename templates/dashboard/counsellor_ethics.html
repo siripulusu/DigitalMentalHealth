@@ -1,0 +1,54 @@
+{% extends "base2.html" %}
+{% block title %}Ethics & Confidentiality{% endblock %}
+{% block content %}
+
+<div class="max-w-4xl mx-auto animate-fade-in pb-20">
+    <section class="mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 rounded-full text-red-700 text-xs font-bold uppercase tracking-widest shadow-sm mb-6">
+            <i class="fa-solid fa-shield-halved"></i> Professional Integrity
+        </div>
+        <h1 class="text-4xl font-black text-gray-800 mb-6">Ethics & <span class="text-red-600">Escalation</span></h1>
+    </section>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
+            <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fa-solid fa-lock text-xl"></i>
+            </div>
+            <h3 class="font-black text-gray-800 mb-3">Confidentiality</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">All student data and assessment scores must remain strictly confidential unless a high-risk trigger is identified.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
+            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fa-solid fa-scale-balanced text-xl"></i>
+            </div>
+            <h3 class="font-black text-gray-800 mb-3">Boundaries</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">Counsellors must maintain professional boundaries. Use the guidance system for one-way support only.</p>
+        </div>
+    </div>
+
+    <div class="bg-gradient-to-br from-red-600 to-rose-700 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden">
+        <div class="relative z-10">
+            <h2 class="text-2xl font-black mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-triangle-exclamation animate-pulse"></i> Immediate Escalation Protocol
+            </h2>
+            <div class="space-y-4 text-red-50">
+                <p class="font-bold">If a student exhibits self-harm tendencies or "High Severity" scores:</p>
+                <ul class="list-disc pl-5 space-y-2 text-sm opacity-90">
+                    <li>Contact the University Emergency Response Team immediately.</li>
+                    <li>Flag the assessment report for Admin review.</li>
+                    <li>Do not attempt to handle life-threatening crises via text-only guidance.</li>
+                    <li>Direct the student to the 24/7 Helpline: <strong>9152987821</strong></li>
+                </ul>
+            </div>
+        </div>
+        <i class="fa-solid fa-biohazard absolute -right-10 -bottom-10 text-[15rem] opacity-10 rotate-12"></i>
+    </div>
+</div>
+
+<style>
+    @keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+</style>
+{% endblock %}

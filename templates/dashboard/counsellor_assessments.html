@@ -1,0 +1,39 @@
+{% extends "base2.html" %}
+{% block content %}
+<section class="max-w-6xl mx-auto py-8">
+    <h1 class="text-3xl font-semibold mb-6">Student Assessment Reports</h1>
+    <div class="bg-white rounded-2xl border p-6 shadow-sm">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="border-b text-gray-500">
+                    <th class="py-3 px-4">Student (ID)</th>
+                    <th class="py-3 px-4">Assessment Type</th>
+                    <th class="py-3 px-4">Severity Score</th>
+                    <th class="py-3 px-4">Completion Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-4 px-4 font-medium">Student #{{ report.student.id }}</td>
+                    <td class="py-4 px-4">{{ report.test_name }}</td>
+                    <td class="py-4 px-4">
+                        <span class="px-3 py-1 rounded-full text-xs 
+                            {% if report.severity == 'High' %}bg-red-100 text-red-700
+                            {% elif report.severity == 'Moderate' %}bg-orange-100 text-orange-700
+                            {% else %}bg-green-100 text-green-700{% endif %}">
+                            {{ report.severity }}
+                        </span>
+                    </td>
+                    <td class="py-4 px-4 text-gray-600">{{ report.created_at|date:"d M Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="py-10 text-center text-gray-500">No dynamic assessments extracted yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

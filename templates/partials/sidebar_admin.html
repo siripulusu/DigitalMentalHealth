@@ -1,0 +1,46 @@
+{% load static %}
+
+<a href="{% url 'admin_dashboard' %}" 
+   class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 group hover:bg-teal-50 {% if request.resolver_match.url_name == 'admin_dashboard' %}bg-teal-50 text-teal-700 shadow-sm{% else %}text-gray-500{% endif %}">
+    <i class="fa-solid fa-gauge-high w-5 mr-3 text-lg transition-transform group-hover:scale-110 {% if request.resolver_match.url_name == 'admin_dashboard' %}text-teal-600{% endif %}"></i> 
+    <span class="font-bold text-sm tracking-tight">Command Center</span>
+</a>
+
+<a href="{% url 'admin_user_management' %}" 
+   class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 group hover:bg-teal-50 {% if request.resolver_match.url_name == 'admin_user_management' %}bg-teal-50 text-teal-700 shadow-sm{% else %}text-gray-500{% endif %}">
+    <i class="fa-solid fa-users-gear w-5 mr-3 text-lg transition-transform group-hover:scale-110 {% if request.resolver_match.url_name == 'admin_user_management' %}text-teal-600{% endif %}"></i> 
+    <span class="font-bold text-sm tracking-tight">User Directory</span>
+    {% if pending_approvals > 0 %}
+    <span class="ml-auto w-5 h-5 bg-amber-500 text-white text-[10px] flex items-center justify-center rounded-full font-black animate-pulse">
+        {{ pending_approvals }}
+    </span>
+    {% endif %}
+</a>
+
+<a href="{% url 'admin_analytics' %}" 
+   class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 group hover:bg-teal-50 {% if request.resolver_match.url_name == 'admin_analytics' %}bg-teal-50 text-teal-700 shadow-sm{% else %}text-gray-500{% endif %}">
+    <i class="fa-solid fa-chart-line w-5 mr-3 text-lg transition-transform group-hover:scale-110 {% if request.resolver_match.url_name == 'admin_analytics' %}text-teal-600{% endif %}"></i> 
+    <span class="font-bold text-sm tracking-tight">System Intelligence</span>
+</a>
+
+<div class="pt-4 pb-2 px-4 border-t mt-4">
+    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Content Control</p>
+</div>
+
+<a href="{% url 'manage_communities' %}" 
+   class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 group hover:bg-teal-50 {% if request.resolver_match.url_name == 'manage_communities' %}bg-teal-50 text-teal-700 shadow-sm{% else %}text-gray-500{% endif %}">
+    <i class="fa-solid fa-hands-holding-circle w-5 mr-3 text-lg transition-transform group-hover:scale-110 {% if request.resolver_match.url_name == 'manage_communities' %}text-teal-600{% endif %}"></i> 
+    <span class="font-bold text-sm tracking-tight">Peer Communities</span>
+</a>
+
+<a href="{% url 'admin_resource_management' %}" 
+   class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 group hover:bg-teal-50 {% if request.resolver_match.url_name == 'admin_resource_management' %}bg-teal-50 text-teal-700 shadow-sm{% else %}text-gray-500{% endif %}">
+    <i class="fa-solid fa-box-archive w-5 mr-3 text-lg transition-transform group-hover:scale-110 {% if request.resolver_match.url_name == 'admin_resource_management' %}text-teal-600{% endif %}"></i> 
+    <span class="font-bold text-sm tracking-tight">Resource Inventory</span>
+</a>
+
+<a href="{% url 'admin_pdf' %}" 
+   class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 group hover:bg-teal-50 text-gray-500">
+    <i class="fa-solid fa-file-pdf w-5 mr-3 text-lg transition-transform group-hover:scale-110"></i> 
+    <span class="font-bold text-sm tracking-tight">Audit Reports</span>
+</a>

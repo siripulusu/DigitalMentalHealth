@@ -8,3 +8,10 @@ def services(request):
 
 def contact(request):
     return render(request, 'pages/contact.html')
+
+def resources_page(request):
+    return render(request, 'pages/resources.html')
+
+def helpline(request):
+    return render(request, "pages/helpline.html")
+

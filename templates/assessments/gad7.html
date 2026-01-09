@@ -1,29 +1,164 @@
+{% extends request.user.is_authenticated|yesno:"base2.html,base.html" %}
+{% block title %}GAD-7 Assessment | Digital Mental Health{% endblock %}
 
-<html>
-<h2>GAD-7 Anxiety Assessment</h2>
-<p>Over the last 2 weeks, how often have you been bothered by the following problems?</p>
+{% block content %}
+<section class="max-w-4xl mx-auto animate-fade-in pb-20">
 
-<form method="post">
-{% csrf_token %}
+    <div class="mb-12">
+        <div class="flex items-center gap-4 mb-4">
+            <a href="/assessments/" class="p-2 hover:bg-gray-100 rounded-full transition text-gray-400 hover:text-teal-600">
+                <i class="fa-solid fa-arrow-left text-xl"></i>
+            </a>
+            <h1 class="text-3xl font-extrabold text-gray-800" style="font-family: 'Poppins', sans-serif;">
+                GAD-7 <span class="text-teal-600">Anxiety Assessment</span>
+            </h1>
+        </div>
+        
+        <div class="bg-teal-50 border-l-4 border-teal-500 p-6 rounded-r-2xl">
+            <p class="text-teal-900 font-medium">
+                <i class="fa-solid fa-calendar-days mr-2"></i> 
+                Over the last <strong>2 weeks</strong>, how often have you been bothered by the following problems?
+            </p>
+        </div>
+    </div>
 
+    <div class="mb-10 px-2">
+        <div class="flex justify-between text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
+            <span>Progress</span>
+            <span id="progressText">0% Completed</span>
+        </div>
+        <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+            <div id="progressBar" class="bg-teal-500 h-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+    </div>
 
-{% for q in questions %}
-<p><strong>{{ forloop.counter }}. {{ q }}</strong></p>
-<select name="q{{ forloop.counter }}" required>
-    <option value="0">Not at all</option>
-    <option value="1">Several days</option>
-    <option value="2">More than half the days</option>
-    <option value="3">Nearly every day</option>
-</select>
-<br><br>
-{% endfor %}
+    <form method="post" class="space-y-8" id="assessmentForm">
+        {% csrf_token %}
 
-<button type="submit">Submit Assessment</button>
-</form>
+        {% for q in questions %}
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 question-card">
+            <div class="flex gap-4 mb-6">
+                <span class="flex-shrink-0 w-8 h-8 bg-teal-100 text-teal-700 rounded-lg flex items-center justify-center font-bold">
+                    {{ forloop.counter }}
+                </span>
+                <p class="text-lg font-semibold text-gray-800 leading-tight">
+                    {{ q }}
+                </p>
+            </div>
 
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <label class="relative flex flex-col p-4 border-2 border-gray-100 rounded-2xl cursor-pointer hover:bg-teal-50 hover:border-teal-200 transition group">
+                    <input type="radio" name="q{{ forloop.counter }}" value="0" required class="absolute opacity-0 peer">
+                    <span class="text-sm font-bold text-gray-400 peer-checked:text-teal-700 group-hover:text-teal-600">Not at all</span>
+                    <div class="absolute top-3 right-3 w-4 h-4 border-2 border-gray-200 rounded-full peer-checked:border-teal-600 peer-checked:bg-teal-600 flex items-center justify-center">
+                        <i class="fa-solid fa-check text-[10px] text-white"></i>
+                    </div>
+                </label>
 
-<p style="font-size:12px; color:gray;">
-This self-assessment is not a medical diagnosis. It is intended for educational and screening purposes only.
-</p>
+                <label class="relative flex flex-col p-4 border-2 border-gray-100 rounded-2xl cursor-pointer hover:bg-teal-50 hover:border-teal-200 transition group">
+                    <input type="radio" name="q{{ forloop.counter }}" value="1" class="absolute opacity-0 peer">
+                    <span class="text-sm font-bold text-gray-400 peer-checked:text-teal-700 group-hover:text-teal-600">Several days</span>
+                    <div class="absolute top-3 right-3 w-4 h-4 border-2 border-gray-200 rounded-full peer-checked:border-teal-600 peer-checked:bg-teal-600 flex items-center justify-center">
+                        <i class="fa-solid fa-check text-[10px] text-white"></i>
+                    </div>
+                </label>
 
-</html>
+                <label class="relative flex flex-col p-4 border-2 border-gray-100 rounded-2xl cursor-pointer hover:bg-teal-50 hover:border-teal-200 transition group">
+                    <input type="radio" name="q{{ forloop.counter }}" value="2" class="absolute opacity-0 peer">
+                    <span class="text-sm font-bold text-gray-400 peer-checked:text-teal-700 group-hover:text-teal-600">Half the days</span>
+                    <div class="absolute top-3 right-3 w-4 h-4 border-2 border-gray-200 rounded-full peer-checked:border-teal-600 peer-checked:bg-teal-600 flex items-center justify-center">
+                        <i class="fa-solid fa-check text-[10px] text-white"></i>
+                    </div>
+                </label>
+
+                <label class="relative flex flex-col p-4 border-2 border-gray-100 rounded-2xl cursor-pointer hover:bg-teal-50 hover:border-teal-200 transition group">
+                    <input type="radio" name="q{{ forloop.counter }}" value="3" class="absolute opacity-0 peer">
+                    <span class="text-sm font-bold text-gray-400 peer-checked:text-teal-700 group-hover:text-teal-600">Nearly every day</span>
+                    <div class="absolute top-3 right-3 w-4 h-4 border-2 border-gray-200 rounded-full peer-checked:border-teal-600 peer-checked:bg-teal-600 flex items-center justify-center">
+                        <i class="fa-solid fa-check text-[10px] text-white"></i>
+                    </div>
+                </label>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="sticky bottom-8 bg-white/80 backdrop-blur-md p-6 rounded-3xl border border-gray-100 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-left">
+                <p class="text-xs font-bold text-gray-400 uppercase">Status</p>
+                <p class="text-sm text-gray-600 font-medium">Please answer all questions to submit.</p>
+            </div>
+            <button type="submit" id="submitBtn"
+                    class="group relative px-12 py-4 rounded-2xl bg-teal-700 text-white text-lg font-bold overflow-hidden shadow-xl hover:bg-teal-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                <span class="relative z-10 flex items-center gap-2">
+                    Submit Assessment <i class="fa-solid fa-paper-plane text-sm group-hover:translate-x-1 transition-transform"></i>
+                </span>
+            </button>
+        </div>
+    </form>
+
+    <div class="mt-16 flex flex-col items-center text-center">
+        <div class="w-12 h-1 bg-gray-200 rounded-full mb-6"></div>
+        <p class="text-xs text-gray-400 max-w-lg leading-relaxed">
+            <i class="fa-solid fa-circle-info mr-1"></i>
+            <strong>Disclaimer:</strong> This self-assessment is a screening tool, not a medical diagnosis. 
+            If you are in immediate distress, please contact emergency services or a mental health professional.
+        </p>
+    </div>
+
+</section>
+
+<script>
+    const form = document.getElementById('assessmentForm');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const totalQuestions = {{ questions|length }};
+
+    form.addEventListener('change', () => {
+        const answered = new Set();
+        const inputs = form.querySelectorAll('input[type="radio"]:checked');
+        inputs.forEach(input => answered.add(input.name));
+        
+        const percentage = Math.round((answered.size / totalQuestions) * 100);
+        progressBar.style.width = `${percentage}%`;
+        progressText.innerText = `${percentage}% Completed`;
+
+        if(percentage === 100) {
+            progressBar.classList.remove('bg-teal-500');
+            progressBar.classList.add('bg-green-500');
+        }
+    });
+
+    // Simple scroll reveal for cards
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100', 'translate-y-0');
+                entry.target.classList.remove('opacity-0', 'translate-y-4');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.question-card').forEach(card => {
+        card.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
+        observer.observe(card);
+    });
+</script>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+    
+    /* Custom radio styling to highlight selected cards */
+    input[type="radio"]:checked + span { color: #0f766e; }
+    input[type="radio"]:checked ~ div { border-color: #0f766e; background-color: #0f766e; }
+    label:has(input[type="radio"]:checked) {
+        border-color: #0f766e;
+        background-color: #f0fdfa;
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(15, 118, 110, 0.1);
+    }
+</style>
+{% endblock %}

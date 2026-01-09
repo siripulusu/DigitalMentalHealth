@@ -72,4 +72,22 @@ def add_guidance(request, appointment_id):
         'appointment': appointment
     })
 
+@login_required
+def view_appointments(request):
+    if request.user.role == 'counsellor':
+        # Counsellors see sessions assigned to them
+        appointments = Appointment.objects.filter(counsellor=request.user).order_by('-date')
+        return render(request, 'appointments/counsellor_list.html', {'appointments': appointments})
+    else:
+        # Students see their own bookings
+        appointments = Appointment.objects.filter(student=request.user).order_by('-date')
+        return render(request, 'appointments/student_list.html', {'appointments': appointments})
 
+@login_required
+def add_guidance(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id, counsellor=request.user)
+    if request.method == 'POST':
+        appointment.guidance_message = request.POST.get('guidance')
+        appointment.save()
+        return redirect('view_appointments')
+    return render(request, 'appointments/add_guidance.html', {'appointment': appointment})

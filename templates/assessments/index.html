@@ -1,0 +1,143 @@
+{% extends request.user.is_authenticated|yesno:"base2.html,base.html" %}
+{% block title %}Assessments | Digital Mental Health{% endblock %}
+
+{% block content %}
+<div class="animate-fade-in">
+    <section class="mb-12 max-w-4xl">
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-800" style="font-family: 'Poppins', sans-serif;">
+            Mental Health <span class="text-teal-600">Assessments</span>
+        </h1>
+        <p class="text-gray-600 leading-relaxed text-lg">
+            {% if request.user.is_authenticated %}
+                Welcome back, <span class="font-semibold text-teal-700">{{ request.user.username }}</span>. 
+                Complete these assessments to update your trends and unlock personalized guidance in your dashboard.
+            {% else %}
+                Scientifically validated self-assessment tools designed to help you understand your emotional wellbeing. 
+                You may begin <span class="font-semibold text-green-600">anonymously</span> or sign in to unlock progress tracking.
+            {% endif %}
+        </p>
+    </section>
+
+    <section class="mb-20">
+        <div class="flex items-center gap-3 mb-10">
+            <div class="h-8 w-1.5 bg-teal-600 rounded-full"></div>
+            <h2 class="text-2xl font-bold text-gray-800">Available Assessments</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-10">
+
+            <div class="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="p-3 bg-teal-50 rounded-2xl text-teal-600 group-hover:bg-teal-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-file-medical text-2xl"></i>
+                    </div>
+                    {% if request.user.is_authenticated %}
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-blue-50 text-blue-600 rounded-md">Tracking Enabled</span>
+                    {% endif %}
+                </div>
+                
+                <h3 class="text-xl font-bold mb-3">PHQ-9 – Depression Screening</h3>
+                <p class="text-sm text-gray-500 mb-6 line-clamp-2">
+                    Evaluates depressive symptoms such as mood, interest, sleep, and energy levels over the past two weeks.
+                </p>
+
+                <ul class="text-sm text-gray-600 mb-8 space-y-3">
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check text-green-500"></i> 9 short questions
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-clock text-amber-500"></i> Takes 3–5 minutes
+                    </li>
+                </ul>
+
+                <a href="/assessments/phq9/"
+                   class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-teal-700 text-white font-bold hover:bg-teal-800 shadow-lg shadow-teal-100 transition-all">
+                    Start PHQ-9 <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+
+            <div class="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="p-3 bg-indigo-50 rounded-2xl text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-shield-heart text-2xl"></i>
+                    </div>
+                    {% if request.user.is_authenticated %}
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-blue-50 text-blue-600 rounded-md">Tracking Enabled</span>
+                    {% endif %}
+                </div>
+
+                <h3 class="text-xl font-bold mb-3">GAD-7 – Anxiety Screening</h3>
+                <p class="text-sm text-gray-500 mb-6 line-clamp-2">
+                    Measures anxiety severity including worry, restlessness, nervousness, and difficulty relaxing.
+                </p>
+
+                <ul class="text-sm text-gray-600 mb-8 space-y-3">
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check text-green-500"></i> 7 focused questions
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-bolt-lightning text-amber-500"></i> Takes 2–4 minutes
+                    </li>
+                </ul>
+
+                <a href="/assessments/gad7/"
+                   class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-teal-700 text-white font-bold hover:bg-teal-800 shadow-lg shadow-teal-100 transition-all">
+                    Start GAD-7 <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="mb-20 grid md:grid-cols-2 gap-8">
+        <div class="bg-gray-50 p-8 rounded-3xl border border-dashed border-gray-300">
+            <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-user-shield text-teal-600"></i> Privacy & Data
+            </h4>
+            <p class="text-sm text-gray-600 leading-relaxed">
+                {% if request.user.is_authenticated %}
+                    Your results will be **saved to your profile**. This allows the system to generate your 
+                    Wellness Trends (Wavy Graphs) and allows counsellors to provide specific guidance.
+                {% else %}
+                    You are in **Anonymous Mode**. Results are processed instantly for your viewing and PDF download. 
+                    No data is stored on our servers once you close this session.
+                {% endif %}
+            </p>
+        </div>
+
+        <div class="bg-teal-900 p-8 rounded-3xl text-white shadow-xl relative overflow-hidden">
+            <div class="relative z-10">
+                <h4 class="font-bold mb-4">Professional PDF Reports</h4>
+                <p class="text-sm text-teal-100 mb-6">
+                    Every assessment generates a clinical-grade report you can take to your doctor or therapist.
+                </p>
+                <div class="flex items-center gap-2 text-xs font-bold bg-white/10 w-fit px-3 py-1 rounded-full border border-white/20">
+                    <i class="fa-solid fa-file-pdf"></i> PDF EXPORT READY
+                </div>
+            </div>
+            <i class="fa-solid fa-file-invoice absolute -right-4 -bottom-4 text-8xl text-white/5 rotate-12"></i>
+        </div>
+    </section>
+
+    {% if not request.user.is_authenticated %}
+    <section class="bg-gradient-to-br from-teal-50 to-white border border-teal-100 rounded-3xl p-10 text-center">
+        <h3 class="text-2xl font-bold text-teal-900 mb-4">Unlock Your Full Journey</h3>
+        <p class="text-gray-600 mb-8 max-w-lg mx-auto">
+            Create an account to track your progress over months, get AI-powered mood suggestions, and connect with peer communities.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="/auth/signup/" class="px-8 py-3 bg-teal-600 text-white font-bold rounded-xl shadow-lg hover:bg-teal-700 transition">Create Free Account</a>
+            <a href="/auth/login/" class="px-8 py-3 border border-teal-200 text-teal-700 font-bold rounded-xl hover:bg-teal-50 transition">Login</a>
+        </div>
+    </section>
+    {% endif %}
+</div>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fade-in 0.6s ease-out forwards; }
+</style>
+{% endblock %}

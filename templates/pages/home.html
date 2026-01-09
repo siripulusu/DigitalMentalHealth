@@ -1,24 +1,164 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Home | Digital Mental Health{% endblock %}
 
 {% block content %}
-<div class="grid md:grid-cols-3 gap-6">
-    <div class="bg-[var(--card)] p-6 rounded shadow hover:shadow-lg transition">
-        <h2 class="font-semibold mb-2">Self Assessments</h2>
-        <p>PHQ-9 and GAD-7 screenings</p>
-        <a href="/assessments/phq9/" class="text-[var(--accent)]">Start</a>
-    </div>
+<div class="animate-fade-in space-y-28 pb-20">
 
-    <div class="bg-[var(--card)] p-6 rounded shadow hover:shadow-lg transition">
-        <h2 class="font-semibold mb-2">AI Support</h2>
-        <p>Chat-based mental health guidance</p>
-        <a href="/chat/" class="text-[var(--accent)]">Open Chat</a>
-    </div>
+    <section class="grid md:grid-cols-2 gap-16 items-center pt-10">
+        <div class="space-y-8">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 rounded-full text-teal-700 text-xs font-bold uppercase tracking-widest shadow-sm">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                </span>
+                Safe & Private Space
+            </div>
 
-    <div class="bg-[var(--card)] p-6 rounded shadow hover:shadow-lg transition">
-        <h2 class="font-semibold mb-2">Appointments</h2>
-        <p>Book counselling sessions</p>
-        <a href="/appointments/book/" class="text-[var(--accent)]">Book</a>
-    </div>
+            <h1 class="text-5xl md:text-6xl leading-tight font-black text-gray-800" style="font-family: 'Poppins', sans-serif;">
+                Your Mental Wellbeing,<br>
+                <span class="text-teal-600 italic">Truly Matters.</span>
+            </h1>
+
+            <p class="text-lg text-gray-500 max-w-xl leading-relaxed">
+                A calm, student-focused mental health platform designed to help you 
+                understand emotions, manage stress, and access the right support — 
+                anonymously or with professional guidance.
+            </p>
+
+            <div class="flex flex-wrap gap-4">
+                <a href="/assessments/" class="px-8 py-4 rounded-2xl bg-teal-700 text-white font-bold shadow-xl shadow-teal-100 hover:bg-teal-800 hover:scale-105 transition-all">
+                    Start Self-Assessment
+                </a>
+                <a href="/chat/" class="px-8 py-4 rounded-2xl border-2 border-gray-100 bg-white text-gray-700 font-bold hover:border-teal-600 hover:text-teal-700 transition-all">
+                    Talk to AI Support
+                </a>
+                <a href="/services/" class="px-8 py-4 rounded-2xl border-2 border-gray-100 bg-white text-gray-700 font-bold hover:border-teal-600 hover:text-teal-700 transition-all">
+                    Explore Services
+                </a>
+            </div>
+        </div>
+
+        <div class="hidden md:flex justify-center relative">
+            <div class="absolute inset-0 bg-teal-100 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+            <img src="/static/svg/home/hero-illustration.svg" class="relative z-10 w-full max-w-md transform hover:rotate-2 transition-transform duration-500" alt="Mental Health Illustration">
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto text-center space-y-6">
+        <h2 class="text-3xl md:text-4xl font-black text-gray-800">A Thoughtfully Designed Mental Health Platform</h2>
+        <div class="h-1.5 w-20 bg-teal-500 mx-auto rounded-full"></div>
+        <p class="text-gray-500 text-lg leading-relaxed">
+            Many students experience emotional pressure but hesitate to seek help. 
+            This platform bridges that gap using validated assessments, AI-guided support, 
+            curated wellness resources, and access to counsellors — all in one secure place.
+        </p>
+    </section>
+
+    <section>
+        <div class="flex items-center gap-4 mb-12">
+            <div class="h-10 w-1.5 bg-teal-600 rounded-full"></div>
+            <h2 class="text-3xl font-black text-gray-800">What We Do</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-clipboard-check text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">Self Assessments</h3>
+                <p class="text-gray-500 text-sm leading-relaxed flex-grow">
+                    Evidence-based PHQ-9 and GAD-7 assessments to help you understand stress, anxiety, and emotional patterns.
+                </p>
+            </div>
+
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-robot text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">AI-Guided Support</h3>
+                <p class="text-gray-500 text-sm leading-relaxed flex-grow">
+                    A rule-based AI assistant offering instant coping guidance, grounding techniques, and emotional first aid.
+                </p>
+            </div>
+
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-user-doctor text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">Professional Help</h3>
+                <p class="text-gray-500 text-sm leading-relaxed flex-grow">
+                    Book counselling appointments and receive guidance from verified mental health professionals.
+                </p>
+            </div>
+
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-users text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">Community Space</h3>
+                <p class="text-gray-500 text-sm leading-relaxed flex-grow">
+                    Connect with safe, peer-led support communities to share experiences and find collective healing.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="text-center text-3xl font-black text-gray-800 mb-16">Why Students Trust This Platform</h2>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-[2rem] border-l-8 border-teal-600 shadow-lg relative">
+                <i class="fa-solid fa-quote-left absolute top-4 right-6 text-gray-50 text-4xl"></i>
+                <p class="text-gray-600 italic relative z-10 leading-relaxed">
+                    “The assessments helped me understand my stress levels clearly. It gave me a language for what I was feeling.”
+                </p>
+                <p class="mt-6 font-black text-teal-800 text-xs uppercase tracking-widest">— Final Year Student</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-[2rem] border-l-8 border-indigo-600 shadow-lg relative">
+                <i class="fa-solid fa-quote-left absolute top-4 right-6 text-gray-50 text-4xl"></i>
+                <p class="text-gray-600 italic relative z-10 leading-relaxed">
+                    “I felt safe using the platform anonymously before logging in. The privacy aspect is what made me stay.”
+                </p>
+                <p class="mt-6 font-black text-indigo-800 text-xs uppercase tracking-widest">— Graduate Scholar</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-[2rem] border-l-8 border-emerald-600 shadow-lg relative">
+                <i class="fa-solid fa-quote-left absolute top-4 right-6 text-gray-50 text-4xl"></i>
+                <p class="text-gray-600 italic relative z-10 leading-relaxed">
+                    “The AI support gave me immediate guidance when I needed it most at 2 AM during exam season.”
+                </p>
+                <p class="mt-6 font-black text-emerald-800 text-xs uppercase tracking-widest">— First Year Student</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative overflow-hidden bg-gradient-to-br from-orange-50 to-white border border-orange-200 rounded-[3rem] p-10 md:p-14 shadow-inner">
+        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+            <div>
+                <h3 class="text-2xl font-black text-orange-800 mb-3 flex items-center justify-center md:justify-start gap-3">
+                    <i class="fa-solid fa-phone-volume animate-bounce"></i> Need Immediate Help?
+                </h3>
+                <p class="text-orange-700 leading-relaxed max-w-lg">
+                    If you are feeling overwhelmed or in distress, please contact a professional mental health helpline immediately.
+                </p>
+            </div>
+            
+            <div class="bg-white px-8 py-6 rounded-3xl shadow-xl border border-orange-100">
+                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">India 24/7 Helpline</p>
+                <a href="tel:9152987821" class="text-3xl font-black text-orange-600 hover:text-orange-700 transition">9152987821</a>
+            </div>
+        </div>
+        <i class="fa-solid fa-heart-pulse absolute -right-10 -bottom-10 text-[12rem] text-orange-100 opacity-40"></i>
+    </section>
+
 </div>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+</style>
 {% endblock %}

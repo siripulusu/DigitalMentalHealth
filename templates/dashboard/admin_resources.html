@@ -1,0 +1,60 @@
+{% extends "base2.html" %}
+{% block content %}
+<div class="max-w-7xl mx-auto pb-20 animate-fade-in">
+    <div class="mb-10">
+        <h1 class="text-3xl font-black text-gray-800">Resource <span class="text-teal-600 italic">Inventory</span></h1>
+    </div>
+
+    <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-2xl mb-12">
+        <h3 class="text-sm font-black text-gray-400 uppercase tracking-widest mb-6">Deploy New Clinical Support Content</h3>
+        <form method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add">
+            <input type="text" name="title" placeholder="Resource Title" class="p-4 bg-gray-50 rounded-2xl outline-none font-bold" required>
+            <input type="url" name="link" placeholder="External URL" class="p-4 bg-gray-50 rounded-2xl outline-none font-bold" required>
+            <select name="category" class="p-4 bg-gray-50 rounded-2xl outline-none font-bold text-gray-500">
+                <option value="Music">Music Therapy</option>
+                <option value="Yoga">Yoga Flow</option>
+                <option value="Exercise">Physical Health</option>
+                <option value="Meditation">Mindfulness</option>
+            </select>
+            <button type="submit" class="md:col-span-3 py-4 bg-teal-600 text-white rounded-2xl font-black shadow-lg shadow-teal-100 hover:bg-teal-700 transition">Publish to System</button>
+        </form>
+    </div>
+
+    <div class="bg-white rounded-[2.5rem] border border-gray-100 shadow-xl overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-gray-50">
+                <tr class="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                    <th class="p-6">Content</th>
+                    <th class="p-6">Classification</th>
+                    <th class="p-6 text-right">Operation</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                {% for res in resources %}
+                <tr class="hover:bg-teal-50/20 transition">
+                    <td class="p-6">
+                        <div class="font-black text-gray-800">{{ res.title }}</div>
+                        <div class="text-[10px] text-teal-600 truncate max-w-xs">{{ res.link }}</div>
+                    </td>
+                    <td class="p-6">
+                        <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase bg-gray-100 text-gray-500">{{ res.category }}</span>
+                    </td>
+                    <td class="p-6 text-right">
+    <form method="POST" onsubmit="return confirm('Are you sure you want to remove this?')">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="res_id" value="{{ res.id }}">
+        <button type="submit" class="text-rose-500 font-black text-[10px] uppercase tracking-widest hover:underline focus:outline-none">
+            Remove
+        </button>
+    </form>
+</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base2.html" %}
+{% block title %}My Appointments | DMH Support{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto animate-fade-in space-y-12 pb-20">
+    
+    <section class="max-w-4xl">
+        <h1 class="text-4xl md:text-5xl font-black mb-6 tracking-tight text-gray-800">
+            My <span class="text-teal-600">Appointments</span>
+        </h1>
+        <p class="text-lg text-gray-500 leading-relaxed">
+            Review your scheduled sessions and professional feedback from your counsellors.
+        </p>
+    </section>
+
+    <div class="bg-white rounded-[2.5rem] border border-gray-100 shadow-xl overflow-hidden">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Counsellor</th>
+                    <th class="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Date & Time</th>
+                    <th class="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Status</th>
+                    <th class="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">Guidance</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                {% for a in appointments %}
+                <tr class="hover:bg-teal-50/30 transition-colors">
+                    <td class="p-6 font-bold text-gray-800">Dr. {{ a.counsellor.username }}</td>
+                    <td class="p-6 text-sm text-gray-600">
+                        <div class="font-bold">{{ a.date|date:"d M Y" }}</div>
+                        <div class="text-xs opacity-60">{{ a.time_slot }}</div>
+                    </td>
+                    <td class="p-6">
+                        <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter 
+                            {% if a.status == 'COMPLETED' %}bg-emerald-100 text-emerald-700
+                            {% elif a.status == 'BOOKED' %}bg-blue-100 text-blue-700
+                            {% else %}bg-gray-100 text-gray-600{% endif %}">
+                            {{ a.status }}
+                        </span>
+                    </td>
+                    <td class="p-6 text-right">
+                        {% if a.guidance_message %}
+                            <button onclick="openModal('Dr. {{ a.counsellor.username }}', '{{ a.guidance_message|escapejs }}')" 
+                                    class="text-teal-600 font-bold text-xs hover:underline flex items-center justify-end w-full">
+                                View Message <i class="fa-solid fa-chevron-right ml-1"></i>
+                            </button>
+                        {% else %}
+                            <span class="text-gray-300 italic text-xs">No feedback yet</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="guidanceModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeModal()"></div>
+    
+    <div class="relative bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl p-10 animate-fade-up">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center">
+                <i class="fa-solid fa-envelope-open-text text-xl"></i>
+            </div>
+            <div>
+                <h3 id="modalCounsellor" class="text-xl font-black text-gray-800">Counsellor Guidance</h3>
+                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Professional Feedback</p>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-2xl p-6 italic text-gray-600 leading-relaxed border-l-4 border-teal-500 mb-8">
+            <span id="modalMessage"></span>
+        </div>
+
+        <button onclick="closeModal()" class="w-full py-4 bg-gray-900 text-white font-black rounded-2xl hover:bg-gray-800 transition shadow-lg">
+            Close Message
+        </button>
+    </div>
+</div>
+
+<script>
+function openModal(counsellor, message) {
+    document.getElementById('modalCounsellor').innerText = counsellor;
+    document.getElementById('modalMessage').innerText = message;
+    document.getElementById('guidanceModal').classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('guidanceModal').classList.add('hidden');
+}
+</script>
+
+<style>
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up { animation: fade-up 0.4s ease-out; }
+</style>
+{% endblock %}

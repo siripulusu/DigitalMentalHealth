@@ -1,0 +1,50 @@
+{% extends "base2.html" %}
+{% block content %}
+<div class="max-w-7xl mx-auto pb-20 animate-fade-in">
+    <div class="flex justify-between items-center mb-10">
+        <h1 class="text-3xl font-black text-gray-800 tracking-tight">Manage <span class="text-teal-600 italic">Communities</span></h1>
+    </div>
+
+    <form method="POST" class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-xl mb-10 space-y-4">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="add">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" name="title" placeholder="Community Title" class="p-4 bg-gray-50 rounded-xl outline-none border-none font-bold" required>
+            <input type="url" name="form_link" placeholder="Google Form / External Link" class="p-4 bg-gray-50 rounded-xl outline-none border-none font-bold" required>
+        </div>
+        <textarea name="description" placeholder="Brief Description" class="w-full p-4 bg-gray-50 rounded-xl outline-none border-none font-bold" rows="2"></textarea>
+        <button type="submit" class="px-8 py-3 bg-teal-600 text-white rounded-xl font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-100">Deploy Community Link</button>
+    </form>
+
+    <div class="bg-white rounded-[2rem] border border-gray-100 shadow-xl overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-gray-50/50">
+                <tr class="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                    <th class="p-6">Community Name</th>
+                    <th class="p-6">Target Link</th>
+                    <th class="p-6 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                {% for link in links %}
+                <tr class="hover:bg-teal-50/20 transition group">
+                    <td class="p-6">
+                        <p class="font-black text-gray-800">{{ link.title }}</p>
+                        <p class="text-[10px] text-gray-400 leading-tight">{{ link.description }}</p>
+                    </td>
+                    <td class="p-6 text-xs text-teal-600 font-bold truncate max-w-xs">{{ link.form_link }}</td>
+                    <td class="p-6 text-right">
+                        <form method="POST" class="inline">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="link_id" value="{{ link.id }}">
+                            <button type="submit" class="text-rose-500 hover:text-rose-700 font-black text-xs uppercase">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

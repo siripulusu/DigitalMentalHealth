@@ -1,67 +1,185 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-[var(--bg)] text-[var(--text)]">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Digital Mental Health{% endblock %}</title>
 
-    <!-- Tailwind CDN (safe for academic use) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- Theme Variables -->
     <style>
         :root {
-            --bg: #f8fafc;
-            --text: #0f172a;
-            --card: #ffffff;
-            --accent: #2563eb;
+            --primary: #0f766e; /* Teal 700 */
+            --primary-light: #f0fdfa;
+            --bg-soft: #fdfaf7; /* Balanced Slate-Peach */
         }
-        .dark {
-            --bg: #0f172a;
-            --text: #e5e7eb;
-            --card: #020617;
-            --accent: #38bdf8;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-soft);
+            color: #374151;
+            scroll-behavior: smooth;
         }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Smooth Page Transitions */
+        .fade-up {
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0f766e; border-radius: 10px; }
     </style>
 </head>
 
-<body class="min-h-screen transition-all duration-300">
+<body>
 
-<!-- NAVBAR -->
-<nav class="flex justify-between items-center px-6 py-4 bg-[var(--card)] shadow">
-    <h1 class="font-bold text-lg">Mental Health Support</h1>
+<header class="fixed top-6 left-0 right-0 z-50 px-4 md:px-0">
+    <div class="max-w-6xl mx-auto">
+        <div class="glass-nav rounded-[2rem] shadow-xl shadow-teal-900/5 px-8 py-4 flex items-center justify-between">
 
-    <div class="flex gap-4 items-center">
-        <a href="/" class="hover:text-[var(--accent)]">Home</a>
-        <a href="/resources/" class="hover:text-[var(--accent)]">Resources</a>
-        <a href="/chat/" class="hover:text-[var(--accent)]">Chat</a>
+            <a href="/" class="flex items-center gap-3 hover:scale-105 transition-transform">
+                <div class="w-10 h-10 bg-teal-700 rounded-xl flex items-center justify-center text-white shadow-lg shadow-teal-200">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <span class="text-xl font-extrabold text-gray-800 tracking-tight hidden sm:block">
+                    DMH <span class="text-teal-700">Support</span>
+                </span>
+            </a>
 
-        {% if user.is_authenticated %}
-            <a href="/auth/logout/" class="hover:text-red-500">Logout</a>
-        {% else %}
-            <a href="/auth/login/" class="hover:text-[var(--accent)]">Login</a>
-        {% endif %}
+            <nav class="hidden md:flex gap-10 text-sm font-bold text-gray-500 uppercase tracking-widest">
+                <a href="/" class="hover:text-teal-700 transition relative group">
+                    Home
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-teal-700 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/services/" class="hover:text-teal-700 transition relative group">
+                    Services
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-teal-700 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/resources/" class="hover:text-teal-700 transition relative group">
+                    Resources
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-teal-700 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/contact/" class="hover:text-teal-700 transition relative group">
+                    Contact
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-teal-700 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="/helpline/" class="hover:text-teal-700 transition relative group">
+                    Quicksupport
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-teal-700 transition-all group-hover:w-full"></span>
+                </a>
+            </nav>
 
-        <!-- Theme Toggle -->
-        <button onclick="toggleTheme()" class="px-3 py-1 rounded bg-[var(--accent)] text-white">
-            Toggle
-        </button>
+            <div class="flex items-center gap-6">
+                {% if user.is_authenticated %}
+                    <div class="flex items-center gap-4 border-l pl-6">
+                        <a href="/dashboard/student/" class="flex items-center gap-2 group">
+                             <div class="text-right hidden sm:block">
+                                <p class="text-[10px] font-black text-teal-600 uppercase tracking-tighter">{{ user.role }}</p>
+                                <p class="text-sm font-bold text-gray-800">{{ user.username }}</p>
+                             </div>
+                             <div class="w-10 h-10 bg-teal-100 rounded-full border-2 border-white shadow-sm flex items-center justify-center text-teal-700 font-bold group-hover:bg-teal-700 group-hover:text-white transition-all">
+                                {{ user.username|first|upper }}
+                             </div>
+                        </a>
+                        <a href="/auth/logout/" class="text-gray-400 hover:text-red-500 transition" title="Logout">
+                            <i class="fa-solid fa-power-off text-lg"></i>
+                        </a>
+                    </div>
+                {% else %}
+                    <a href="/auth/login/" class="text-sm font-black text-gray-600 hover:text-teal-700 transition">
+                        Login
+                    </a>
+                    <a href="/auth/signup/" class="px-7 py-3 rounded-2xl bg-teal-700 text-white text-sm font-bold shadow-lg shadow-teal-200 hover:bg-teal-800 hover:-translate-y-0.5 transition-all active:scale-95">
+                        Sign Up
+                    </a>
+                {% endif %}
+            </div>
+        </div>
     </div>
-</nav>
+</header>
 
-<!-- PAGE CONTENT -->
-<main class="p-6">
+<main class="pt-40 px-6 max-w-7xl mx-auto min-h-screen fade-up">
     {% block content %}{% endblock %}
 </main>
 
-<script>
-function toggleTheme() {
-    document.documentElement.classList.toggle('dark');
-    localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-}
-if (localStorage.theme === 'dark') {
-    document.documentElement.classList.add('dark');
-}
-</script>
+<footer class="mt-32 bg-gray-900 text-white rounded-t-[3rem] pt-20 pb-10 px-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-16 mb-16">
+            
+            <div class="space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center text-white">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <span class="text-lg font-bold tracking-tight">DMH Platform</span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    A safe digital space dedicated to student mental health awareness, 
+                    offering scientifically validated assessments and 24/7 AI-guided support.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <h4 class="text-xs font-black uppercase tracking-widest text-teal-500">Platform</h4>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li><a href="/services/" class="hover:text-white transition">All Services</a></li>
+                        <li><a href="/resources/" class="hover:text-white transition">Self-Help Hub</a></li>
+                        <li><a href="/assessments/" class="hover:text-white transition">Take a Test</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-xs font-black uppercase tracking-widest text-teal-500">Support</h4>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li><a href="/contact/" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/helpline/" class="hover:text-white transition">Crisis Helplines</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white/5 border border-white/10 p-8 rounded-3xl space-y-4">
+                <h4 class="text-orange-500 font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-phone-flip animate-pulse"></i> 24/7 Helpline
+                </h4>
+                <p class="text-3xl font-black">9152987821</p>
+                <p class="text-[10px] text-gray-500 uppercase tracking-tighter">India National Mental Health Line</p>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-gray-500 text-xs uppercase font-bold tracking-widest">
+                © {{ now|date:"Y" }} Digital Mental Health System • Confidential & Secure
+            </p>
+            <div class="flex gap-6 text-gray-400 text-lg">
+                <i class="fa-brands fa-twitter hover:text-teal-500 cursor-pointer transition"></i>
+                <i class="fa-brands fa-instagram hover:text-teal-500 cursor-pointer transition"></i>
+                <i class="fa-brands fa-linkedin hover:text-teal-500 cursor-pointer transition"></i>
+            </div>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

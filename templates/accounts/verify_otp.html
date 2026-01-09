@@ -1,23 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Verify OTP</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow border">
+  <h2 class="text-2xl font-semibold mb-4 text-center">
+    Verify Your Email
+  </h2>
 
-<h2>Email Verification</h2>
-<p>Enter the 6-digit OTP sent to your email.</p>
+  <p class="text-sm text-gray-600 mb-6 text-center">
+    Enter the 6-digit OTP sent to your email.
+  </p>
 
-<form method="post">
+  <form method="post">
     {% csrf_token %}
-    <input name="otp" placeholder="Enter OTP" required>
-    <br><br>
-    <button type="submit">Verify</button>
-</form>
+    <input name="otp" maxlength="6" required
+           class="w-full text-center text-xl tracking-widest px-4 py-3 border rounded-lg mb-4">
 
-{% for message in messages %}
-<p style="color:red">{{ message }}</p>
-{% endfor %}
-
-</body>
-</html>
+    <button class="w-full py-3 bg-teal-700 text-white rounded-xl">
+      Verify
+    </button>
+  </form>
+</div>
+{% endblock %}

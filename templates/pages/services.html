@@ -1,0 +1,182 @@
+{% extends request.user.is_authenticated|yesno:"base2.html,base.html" %}
+{% block title %}Services | Digital Mental Health{% endblock %}
+
+{% block content %}
+<div class="animate-fade-in max-w-7xl mx-auto pb-20">
+
+    <section class="max-w-4xl mb-16">
+        <h1 class="text-4xl md:text-5xl font-black mb-6 tracking-tight text-gray-800" style="font-family: 'Poppins', sans-serif;">
+            Our <span class="text-teal-600">Mental Health</span> Services
+        </h1>
+        <p class="text-lg text-gray-500 leading-relaxed">
+            The Digital Mental Health Support System provides a comprehensive, 
+            ethically designed mental health assistance platform for students. 
+            From anonymous tools to personalized care, we ensure privacy at every step.
+        </p>
+    </section>
+
+    <section class="mb-24">
+        <div class="flex items-center gap-4 mb-10">
+            <div class="h-10 w-1.5 bg-teal-600 rounded-full"></div>
+            <h2 class="text-3xl font-black text-gray-800">Core Support Services</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-clipboard-check text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">Self-Assessments</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                    Evidence-based PHQ-9 and GAD-7 questionnaires help you understand your emotional levels through structured scoring.
+                </p>
+                <ul class="text-xs text-gray-400 space-y-2 mb-8">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-500"></i> Depression screening</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-500"></i> Instant feedback</li>
+                </ul>
+                <span class="inline-block self-start text-[10px] px-3 py-1 rounded-full font-black bg-green-100 text-green-700 uppercase tracking-widest">Anonymous Access</span>
+            </div>
+
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-robot text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">AI Emotional Support</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                    A mood-aware AI chatbot offering immediate grounding techniques and stress management using predefined logic.
+                </p>
+                <ul class="text-xs text-gray-400 space-y-2 mb-8">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-indigo-500"></i> Stress management</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-indigo-500"></i> No data profiling</li>
+                </ul>
+                <span class="inline-block self-start text-[10px] px-3 py-1 rounded-full font-black bg-green-100 text-green-700 uppercase tracking-widest">Anonymous Access</span>
+            </div>
+
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-leaf text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">Wellness Resources</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                    Categorized collections of breathing exercises, yoga, and calming audio mapped to your emotional needs.
+                </p>
+                <ul class="text-xs text-gray-400 space-y-2 mb-8">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Guided breathing</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Sleep hygiene guides</li>
+                </ul>
+                <span class="inline-block self-start text-[10px] px-3 py-1 rounded-full font-black bg-green-100 text-green-700 uppercase tracking-widest">Anonymous Access</span>
+            </div>
+
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-rose-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-phone-volume text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">Quick Crisis Support</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                    Immediate redirection to verified mental health helplines for high-risk situations requiring professional care.
+                </p>
+                <ul class="text-xs text-gray-400 space-y-2 mb-8">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-500"></i> 24/7 Helpline Access</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rose-500"></i> Emergency guidance</li>
+                </ul>
+                <span class="inline-block self-start text-[10px] px-3 py-1 rounded-full font-black bg-red-100 text-red-700 uppercase tracking-widest">Crisis Support</span>
+            </div>
+
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-users text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">Peer Communities</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                    Safe, moderated spaces to connect with other students and share experiences in an anonymous environment.
+                </p>
+                <ul class="text-xs text-gray-400 space-y-2 mb-8">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-500"></i> Community forums</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-500"></i> Peer-led empathy</li>
+                </ul>
+                <span class="inline-block self-start text-[10px] px-3 py-1 rounded-full font-black bg-green-100 text-green-700 uppercase tracking-widest">Anonymous Access</span>
+            </div>
+
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-slate-50 text-slate-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-slate-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-shield-halved text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">Ethical Safeguards</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                    Our platform is built to avoid identity tracking, behavioral profiling, or unauthorized external data sharing.
+                </p>
+                <ul class="text-xs text-gray-400 space-y-2 mb-8">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-slate-500"></i> No 3rd party APIs</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-slate-500"></i> Data sovereignty</li>
+                </ul>
+                <span class="inline-block self-start text-[10px] px-3 py-1 rounded-full font-black bg-green-100 text-green-700 uppercase tracking-widest">Built-in Privacy</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-24">
+        <div class="flex items-center gap-4 mb-10">
+            <div class="h-10 w-1.5 bg-indigo-600 rounded-full"></div>
+            <h2 class="text-3xl font-black text-gray-800">Advanced Account-Based Services</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-chart-line text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">History & Trends</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                    Secure storage and visualization of your wellness journey to identify long-term emotional patterns.
+                </p>
+                <span class="inline-block self-start text-[10px] px-3 py-1 rounded-full font-black bg-blue-100 text-blue-700 uppercase tracking-widest">Login Required</span>
+            </div>
+
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-calendar-check text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">Counselling Booking</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                    Book one-on-one sessions with professional counsellors through our privacy-first interaction model.
+                </p>
+                <span class="inline-block self-start text-[10px] px-3 py-1 rounded-full font-black bg-blue-100 text-blue-700 uppercase tracking-widest">Login Required</span>
+            </div>
+
+            <div class="flex flex-col bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full">
+                <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-file-pdf text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-gray-800 mb-4">Downloadable Reports</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                    Generate formatted clinical-grade PDF reports for self-reflection or sharing with offline professionals.
+                </p>
+                <span class="inline-block self-start text-[10px] px-3 py-1 rounded-full font-black bg-blue-100 text-blue-700 uppercase tracking-widest">Login Required</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-br from-teal-900 to-emerald-800 rounded-[3rem] p-12 text-center text-white shadow-2xl relative overflow-hidden">
+        <div class="relative z-10">
+            <h3 class="text-3xl font-black mb-4">Ready to Begin Your Journey?</h3>
+            <p class="text-teal-50 mb-10 opacity-80 max-w-2xl mx-auto">
+                Access self-help tools instantly or create a secure account to unlock personalized tracking and counselling access.
+            </p>
+            <div class="flex justify-center gap-6 flex-wrap">
+                <a href="/auth/signup/" class="px-10 py-4 bg-white text-teal-900 font-black rounded-2xl shadow-xl hover:bg-teal-50 hover:scale-105 transition-all">
+                    Create Secure Account
+                </a>
+                <a href="/" class="px-10 py-4 bg-teal-700/30 backdrop-blur-md border border-white/20 text-white font-black rounded-2xl hover:bg-white/10 transition-all">
+                    Explore Platform
+                </a>
+            </div>
+        </div>
+        <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
+    </section>
+</div>
+
+<style>
+    @keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+</style>
+{% endblock %}

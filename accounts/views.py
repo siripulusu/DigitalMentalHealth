@@ -7,26 +7,37 @@ from .models import EmailOTP
 import random 
 from django.contrib.sites.models import Site
 from django.contrib.auth.views import PasswordResetView
-
+from .utils import redirect_user_dashboard
 import uuid
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        identifier = request.POST.get('username')  # username OR email
         password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
-        if user:
-            if user.role != 'student' and not user.is_approved:
-                messages.error(request, 'Account awaiting admin approval.')
-                return redirect('login')
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, 'Invalid credentials')
+        user = None
+
+        # Try email login
+        try:
+            user_obj = User.objects.get(email=identifier)
+            user = authenticate(request, username=user_obj.username, password=password)
+        except User.DoesNotExist:
+            # Try username login
+            user = authenticate(request, username=identifier, password=password)
+
+        if user is None:
+            messages.error(request, 'Invalid username/email or password.')
+            return render(request, 'accounts/login.html')
+
+        # Approval check
+        if user.role in ['counsellor', 'peer'] and not user.is_approved:
+            messages.error(request, 'Your account is awaiting admin approval.')
+            return render(request, 'accounts/login.html')
+
+        login(request, user)
+        return redirect_user_dashboard(user)
 
     return render(request, 'accounts/login.html')
-
 
 def logout_view(request):
     logout(request)
@@ -113,7 +124,12 @@ def verify_otp_view(request):
 
     return render(request, 'accounts/verify_otp.html')
 
-
+def logout_view(request):
+    # Clear the specific session key
+    if 'has_counted_login' in request.session:
+        del request.session['has_counted_login']
+    logout(request)
+    return redirect('login')
 class CustomPasswordResetView(PasswordResetView):
     email_template_name = 'registration/password_reset_email.html'
     html_email_template_name = 'registration/password_reset_email.html'

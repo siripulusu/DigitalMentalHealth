@@ -1,0 +1,65 @@
+{% extends "base2.html" %}
+{% block content %}
+<div class="max-w-7xl mx-auto pb-20 animate-fade-in">
+    <div class="mb-12">
+        <h1 class="text-4xl font-black text-gray-800 tracking-tight">System <span class="text-indigo-600">Intelligence</span></h1>
+        <p class="text-gray-500 font-medium">Monitoring platform-wide behavioral waves and clusters.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div class="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-2xl relative overflow-hidden">
+            <h3 class="text-xl font-black text-gray-800 mb-8 flex items-center gap-3">
+                <i class="fa-solid fa-wave-square text-indigo-500"></i> Global Sentiment Wave
+            </h3>
+            <canvas id="wavyMoodChart" height="200"></canvas>
+        </div>
+
+        <div class="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-2xl relative overflow-hidden">
+            <h3 class="text-xl font-black text-gray-800 mb-8 flex items-center gap-3">
+                <i class="fa-solid fa-chart-scatter text-rose-500"></i> Severity Clustering
+            </h3>
+            <canvas id="behaviorScatter" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const moodCtx = document.getElementById('wavyMoodChart').getContext('2d');
+    new Chart(moodCtx, {
+        type: 'line',
+        data: {
+            labels: {{ mood_labels|safe }},
+            datasets: [{
+                data: {{ mood_values|safe }},
+                borderColor: '#6366f1',
+                backgroundColor: 'rgba(99, 102, 241, 0.05)',
+                tension: 0.5, // Wavy Factor
+                fill: true,
+                pointRadius: 0
+            }]
+        },
+        options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { grid: { display: false } } } }
+    });
+
+    const scatterCtx = document.getElementById('behaviorScatter').getContext('2d');
+    new Chart(scatterCtx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                data: {{ scatter_data|safe }},
+                backgroundColor: '#f43f5e',
+                pointRadius: 6,
+                pointHoverRadius: 10
+            }]
+        },
+        options: {
+            scales: {
+                x: { title: { display: true, text: 'Hour of Submission' }, grid: { display: false } },
+                y: { title: { display: true, text: 'Score' } }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+</script>
+{% endblock %}

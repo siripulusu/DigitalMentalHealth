@@ -1,0 +1,75 @@
+{% extends "base2.html" %}
+{% block title %}Peer Support Dashboard | Digital Mental Health{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+
+  <!-- Header -->
+  <div class="mb-12">
+    <h1 class="text-3xl font-semibold">
+      Hello, {{ user.username }}
+    </h1>
+    <p class="text-gray-600 mt-1">
+      Peer Support Dashboard · Community-Based Assistance
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-8">
+
+    <!-- Peer Conversations -->
+    <div class="bg-white p-8 rounded-2xl border hover:shadow-xl transition hover:border-teal-600">
+      <h3 class="text-lg font-semibold mb-2">Peer Conversations</h3>
+      <p class="text-sm text-gray-600 mb-4">
+        Participate in moderated peer support discussions.
+      </p>
+      <div class="flex items-center justify-between">
+        <span class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
+          No Diagnosis
+        </span>
+        <a href="/dashboard/volunteer/conversations/"
+           class="text-sm text-teal-700 hover:underline">
+          View Conversations →
+        </a>
+      </div>
+    </div>
+
+    <!-- Community Forms -->
+    <div class="bg-white p-8 rounded-2xl border hover:shadow-xl transition hover:border-teal-600">
+      <h3 class="text-lg font-semibold mb-2">Community Forms</h3>
+      <p class="text-sm text-gray-600 mb-6">
+        Manage participation links and student sign-ups.
+      </p>
+      <a href="/dashboard/volunteer/communities/"
+         class="text-sm text-teal-700 hover:underline">
+        Manage Communities →
+      </a>
+    </div>
+
+    <!-- Peer Guidelines -->
+    <div class="bg-white p-8 rounded-2xl border hover:shadow-xl transition hover:border-teal-600">
+      <h3 class="text-lg font-semibold mb-2">Peer Guidelines</h3>
+      <p class="text-sm text-gray-600 mb-6">
+        Follow safe communication practices and respect boundaries.
+      </p>
+      <a href="/dashboard/volunteer/guidelines/"
+         class="text-sm text-teal-700 hover:underline">
+        View Guidelines →
+      </a>
+    </div>
+
+    <!-- Escalation Policy -->
+    <div class="bg-white p-8 rounded-2xl border hover:shadow-xl transition hover:border-red-400 md:col-span-3">
+      <h3 class="text-lg font-semibold mb-2">Escalation Policy</h3>
+      <p class="text-sm text-gray-600 mb-4">
+        If a student expresses distress or risk, escalate immediately to
+        counsellors or administrators.
+      </p>
+      <a href="/dashboard/volunteer/escalation/"
+         class="text-sm text-red-600 hover:underline">
+        View Escalation Rules →
+      </a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

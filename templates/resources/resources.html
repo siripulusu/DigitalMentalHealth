@@ -1,25 +1,142 @@
-<h2>Mental Health Resources</h2>
+{% extends request.user.is_authenticated|yesno:"base2.html,base.html" %}
+{% block title %}Resource Hub | Digital Mental Health{% endblock %}
 
-{% if severity %}
-<p>Recommended based on your recent assessment (Severity: {{ severity|title }})</p>
-{% else %}
-<p>General mental health resources</p>
-{% endif %}
+{% block content %}
+<div class="animate-fade-in max-w-7xl mx-auto pb-20">
 
-<ul>
-{% for r in resources %}
-    <li>
-        <strong>{{ r.title }}</strong><br>
-        {{ r.description }}<br>
-        <em>Type:</em> {{ r.resource_type }}<br>
-        <a href="{{ r.link }}" target="_blank">Open Resource</a>
-    </li>
-    <br>
-{% empty %}
-    <p>No resources available.</p>
-{% endfor %}
-</ul>
+    <section class="mb-16 relative overflow-hidden bg-gradient-to-br from-teal-900 to-emerald-800 rounded-[2.5rem] p-10 md:p-16 text-white shadow-2xl">
+        <div class="relative z-10 max-w-3xl">
+            <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight" style="font-family: 'Poppins', sans-serif;">
+                Resource <span class="text-teal-400 italic">Hub</span>
+            </h1>
+            <p class="text-lg text-teal-50 opacity-90 leading-relaxed mb-8">
+                A structured sanctuary of self-help tools and professional insights. 
+                {% if not user.is_authenticated %}
+                Access our base tools instantly or sign in to unlock personalized pathways.
+                {% else %}
+                Welcome, {{ user.username }}. Explore resources specifically curated for your wellness journey.
+                {% endif %}
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <span class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-xs font-bold uppercase tracking-widest">
+                    <i class="fa-solid fa-infinity mr-2 text-teal-400"></i> Free Access
+                </span>
+                <span class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-xs font-bold uppercase tracking-widest">
+                    <i class="fa-solid fa-shield-halved mr-2 text-teal-400"></i> Secure & Private
+                </span>
+            </div>
+        </div>
+        <div class="absolute -right-20 -bottom-20 opacity-10 rotate-12">
+            <i class="fa-solid fa-leaf text-[20rem]"></i>
+        </div>
+    </section>
 
-<p>
-    <a href="/resources/community/">Explore Peer Support Communities</a>
-</p>
+    <section class="mb-24">
+        <div class="flex items-center gap-4 mb-10">
+            <div class="h-10 w-1.5 bg-teal-600 rounded-full"></div>
+            <h2 class="text-3xl font-black text-gray-800">Instant Self-Help</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for tool in instant_tools %}
+                <div class="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="w-14 h-14 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-all">
+                        <i class="fa-solid {{ tool.icon }} text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-800 mb-3">{{ tool.title }}</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-6">{{ tool.desc }}</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-black uppercase text-teal-600 bg-teal-50 px-3 py-1 rounded-full">Public Access</span>
+                        <a href="#" class="text-teal-600 hover:text-teal-800 font-bold text-sm">Open Tool <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="mb-24 bg-gray-50 rounded-[3rem] p-10 border border-white">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <h2 class="text-3xl font-black text-gray-800 mb-4">Personalized Pathways</h2>
+            <p class="text-gray-500">Tailored recommendations derived from your emotional patterns and assessment history.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white/60 backdrop-blur-xl p-8 rounded-[2rem] border border-white shadow-xl relative overflow-hidden group">
+                <i class="fa-solid fa-chart-simple absolute -right-4 -top-4 text-7xl text-teal-100 group-hover:rotate-12 transition-transform"></i>
+                <h3 class="text-lg font-black text-gray-800 mb-4">Assessment Driven</h3>
+                <p class="text-xs text-gray-500 mb-6">Based on your PHQ-9 and GAD-7 levels.</p>
+                {% if not user.is_authenticated %}
+                <span class="text-[10px] font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full"><i class="fa-solid fa-lock mr-1"></i> Login Required</span>
+                {% else %}<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full"><i class="fa-solid fa-unlock mr-1"></i> Active</span>{% endif %}
+            </div>
+
+            <div class="bg-white/60 backdrop-blur-xl p-8 rounded-[2rem] border border-white shadow-xl relative overflow-hidden group">
+                <i class="fa-solid fa-wave-square absolute -right-4 -top-4 text-7xl text-indigo-100 group-hover:rotate-12 transition-transform"></i>
+                <h3 class="text-lg font-black text-gray-800 mb-4">Trend Insights</h3>
+                <p class="text-xs text-gray-500 mb-6">Suggestions from your wellness trends.</p>
+                {% if not user.is_authenticated %}
+                <span class="text-[10px] font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full"><i class="fa-solid fa-lock mr-1"></i> Login Required</span>
+                {% else %}<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full"><i class="fa-solid fa-unlock mr-1"></i> Active</span>{% endif %}
+            </div>
+
+            <div class="bg-white/60 backdrop-blur-xl p-8 rounded-[2rem] border border-white shadow-xl relative overflow-hidden group">
+                <i class="fa-solid fa-robot absolute -right-4 -top-4 text-7xl text-purple-100 group-hover:rotate-12 transition-transform"></i>
+                <h3 class="text-lg font-black text-gray-800 mb-4">AI Guidance</h3>
+                <p class="text-xs text-gray-500 mb-6">Suggestions based on chatbot interactions.</p>
+                {% if not user.is_authenticated %}
+                <span class="text-[10px] font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full"><i class="fa-solid fa-lock mr-1"></i> Login Required</span>
+                {% else %}<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full"><i class="fa-solid fa-unlock mr-1"></i> Active</span>{% endif %}
+            </div>
+        </div>
+
+        {% if not user.is_authenticated %}
+        <div class="mt-12 text-center">
+            <a href="/auth/login/" class="px-10 py-4 bg-teal-700 text-white font-black rounded-2xl shadow-2xl hover:bg-teal-800 transition-all">
+                Login to Explore Personalized Resources
+            </a>
+        </div>
+        {% endif %}
+    </section>
+
+    {% if resources %}
+    <section class="mb-24">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-black text-gray-800 mb-4">Handpicked Recommendations</h2>
+            <p class="text-gray-500">Selected by our clinical team to support your specific needs.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for r in resources %}
+            <div class="bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col">
+                <div class="h-2 bg-teal-500 w-full"></div>
+                <div class="p-8 flex-1 flex flex-col">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center text-teal-600"><i class="fa-solid fa-file-lines"></i></div>
+                        <span class="text-[10px] font-black uppercase text-gray-400 tracking-widest">{{ r.category }}</span>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-800 mb-4">{{ r.title }}</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-8 flex-1">{{ r.description }}</p>
+                    <a href="{{ r.link }}" target="_blank" class="flex items-center justify-center gap-2 w-full py-4 bg-teal-50 text-teal-700 font-black rounded-2xl hover:bg-teal-600 hover:text-white transition-all">
+                        Launch Resource <i class="fa-solid fa-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-100 rounded-[3rem] p-12 text-center shadow-inner">
+        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-teal-600 mx-auto mb-6 shadow-xl"><i class="fa-solid fa-users-viewfinder text-2xl"></i></div>
+        <h3 class="text-2xl font-black text-gray-800 mb-4">Prefer Shared Experiences?</h3>
+        <p class="text-gray-500 mb-8 max-w-lg mx-auto">Join our peer-led support communities to connect with others.</p>
+        <a href="/resources/community/" class="inline-flex items-center gap-2 px-8 py-3 bg-teal-700 text-white font-black rounded-xl hover:bg-teal-800 transition shadow-lg">Explore Peer Communities <i class="fa-solid fa-people-group"></i></a>
+    </section>
+</div>
+
+<style>
+    @keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+    .group:hover .group-hover\:rotate-12 { transform: rotate(12deg) scale(1.1); }
+</style>
+{% endblock %}

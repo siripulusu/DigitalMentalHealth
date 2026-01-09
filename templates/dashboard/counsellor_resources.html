@@ -1,0 +1,31 @@
+{% extends "base2.html" %}
+{% block content %}
+<section class="max-w-4xl mx-auto py-8">
+    <h1 class="text-3xl font-semibold mb-6">Resource Management</h1>
+
+    <div class="bg-white p-6 rounded-2xl border shadow-sm mb-10">
+        <h3 class="text-lg font-bold mb-4">Add New Resource</h3>
+        <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="Resource Title" class="w-full border p-2 rounded" required>
+            <input type="url" name="link" placeholder="Resource URL" class="w-full border p-2 rounded" required>
+            <button type="submit" class="bg-teal-700 text-white px-6 py-2 rounded-lg">Add Resource</button>
+        </form>
+    </div>
+
+    <h3 class="text-lg font-bold mb-4">Available Resources</h3>
+    <div class="grid gap-4">
+        {% for res in resources %}
+        <div class="bg-gray-50 p-4 rounded-xl border flex justify-between items-center">
+            <div>
+                <h4 class="font-semibold">{{ res.title }}</h4>
+                <a href="{{ res.link }}" target="_blank" class="text-teal-600 text-sm hover:underline">{{ res.link }}</a>
+            </div>
+            <span class="text-xs text-gray-400">View Only</span>
+        </div>
+        {% empty %}
+        <p class="text-gray-500">No resources added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

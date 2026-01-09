@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}DMH Platform{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --accent: #0f766e;
+            --bg: #f8fafc; 
+            --card: #ffffff;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        
+        .animate-fade-in { animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+
+<body class="bg-[var(--bg)] min-h-screen flex">
+
+<aside class="w-72 bg-white border-r shadow-sm hidden md:flex flex-col sticky top-0 h-screen">
+    <div class="p-8">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-teal-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-teal-200">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold text-gray-800 tracking-tight">DMH Portal</h2>
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Secure Support</p>
+            </div>
+        </div>
+    </div>
+
+    <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+        {% if user.role == 'student' %}
+            {% include "partials/sidebar_student.html" %}
+        {% elif user.role == 'counsellor' %}
+            {% include "partials/sidebar_counsellor.html" %}
+        {% elif user.role == 'peer' %}
+            {% include "partials/sidebar_volunteer.html" %}
+        {% elif user.role == 'admin' %}
+            {% include "partials/sidebar_admin.html" %}
+        {% endif %}
+    </nav>
+
+    <div class="p-6 border-t">
+        <a href="/auth/logout/" 
+           class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-50 text-red-600 font-bold hover:bg-red-100 transition duration-200">
+            <i class="fa-solid fa-power-off"></i> Logout
+        </a>
+    </div>
+</aside>
+
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    
+    <header class="bg-white/80 backdrop-blur-md border-b sticky top-0 z-40 px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+             <i class="fa-solid fa-bars md:hidden text-gray-500 cursor-pointer"></i>
+             <div class="hidden sm:block">
+                <h1 class="text-lg font-bold text-gray-800">
+                    {% block page_title %}Dashboard{% endblock %}
+                </h1>
+                <p class="text-xs text-gray-500">
+                    {% block page_subtitle %}Welcome back to your workspace.{% endblock %}
+                </p>
+             </div>
+             <span class="bg-teal-100 text-teal-700 text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ml-2">
+                {{ user.role }}
+             </span>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="relative">
+                <button id="notifButton" class="relative p-2 text-gray-400 hover:text-teal-600 transition-colors focus:outline-none">
+                    <i class="fa-solid fa-bell text-xl"></i>
+                    {% if unread_notif_count > 0 %}
+                    <span class="absolute top-2 right-2 w-4 h-4 bg-red-500 rounded-full border-2 border-white text-[8px] flex items-center justify-center text-white font-bold">
+                        {{ unread_notif_count }}
+                    </span>
+                    {% endif %}
+                </button>
+
+                <div id="notifDropdown" class="hidden absolute right-0 mt-3 w-80 bg-white rounded-[2rem] shadow-2xl border border-gray-100 z-50 overflow-hidden animate-fade-in">
+                    <div class="p-5 border-b border-gray-50 flex justify-between items-center bg-gray-50/50">
+                        <h3 class="font-black text-gray-800 text-sm tracking-tight">Alerts</h3>
+                        <button id="markAllRead" class="text-[9px] font-black text-teal-600 uppercase tracking-widest hover:underline focus:outline-none">
+                            Mark all read
+                        </button>
+                    </div>
+                    
+                    <div class="max-h-80 overflow-y-auto">
+                        {% for n in nav_notifications %}
+                        <a href="{{ n.link|default:'#' }}" class="block p-4 hover:bg-teal-50/50 border-b border-gray-50 transition-colors {% if not n.is_read %}bg-blue-50/30{% endif %}">
+                            <div class="flex gap-3">
+                                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm border border-gray-100">
+                                    <i class="fa-solid fa-circle-info text-teal-500 text-xs"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-[11px] font-bold text-gray-800 leading-tight mb-0.5">{{ n.title }}</p>
+                                    <p class="text-[10px] text-gray-500 line-clamp-2 leading-relaxed">{{ n.message }}</p>
+                                    <span class="text-[8px] text-gray-400 font-black uppercase mt-1 block">{{ n.created_at|timesince }} ago</span>
+                                </div>
+                            </div>
+                        </a>
+                        {% empty %}
+                        <div class="p-8 text-center">
+                            <p class="text-xs text-gray-400 italic">No new notifications</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3 border-l pl-6">
+                <div class="text-right hidden sm:block">
+                    <p class="text-sm font-bold text-gray-800 leading-none mb-1">{{ user.username }}</p>
+                    <p class="text-[10px] text-green-500 font-medium flex items-center justify-end gap-1">
+                        <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Online
+                    </p>
+                </div>
+                <div class="w-10 h-10 bg-teal-600 rounded-full border-2 border-white shadow-md flex items-center justify-center text-white font-bold">
+                    {{ user.username|first|upper }}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 p-8 overflow-y-auto bg-[#f8fafc]">
+        <div class="max-w-7xl mx-auto">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+</div>
+
+<script>
+    // 1. Notification Toggle Logic
+    const nBtn = document.getElementById('notifButton');
+    const nMenu = document.getElementById('notifDropdown');
+    
+    if (nBtn && nMenu) {
+        nBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            nMenu.classList.toggle('hidden');
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (!nBtn.contains(e.target) && !nMenu.contains(e.target)) {
+                nMenu.classList.add('hidden');
+            }
+        });
+    }
+
+    // 2. Mark All Read Logic (AJAX)
+    const markBtn = document.getElementById('markAllRead');
+    if (markBtn) {
+        markBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation(); // Keep menu open for visual feedback
+            
+            fetch("{% url 'mark_all_read' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Hide the red badge count
+                    const badge = document.querySelector('#notifButton span');
+                    if (badge) badge.remove();
+                    
+                    // Remove blue highlight from unread items
+                    document.querySelectorAll('#notifDropdown a').forEach(item => {
+                        item.classList.remove('bg-blue-50/30');
+                    });
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+{% extends request.user.is_authenticated|yesno:"base2.html,base.html" %}
+{% block title %}Contact & Support | Digital Mental Health{% endblock %}
+
+{% block content %}
+<div class="animate-fade-in max-w-7xl mx-auto pb-20">
+
+    <section class="max-w-4xl mb-16">
+        <h1 class="text-4xl md:text-5xl font-black mb-6 tracking-tight text-gray-800" style="font-family: 'Poppins', sans-serif;">
+            Contact & <span class="text-teal-600">Support</span>
+        </h1>
+        <p class="text-lg text-gray-600 leading-relaxed">
+            Mental health support should always be accessible, respectful, and safe. 
+            We provide official helpline information, emergency guidance, and dedicated support for platform queries.
+        </p>
+    </section>
+
+    <section class="mb-24 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 relative overflow-hidden bg-gradient-to-br from-orange-600 to-red-600 rounded-[2.5rem] p-10 text-white shadow-2xl">
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-black">Immediate Crisis Help</h3>
+                </div>
+                <p class="text-orange-50 opacity-90 leading-relaxed mb-8 max-w-2xl">
+                    If you are experiencing intense emotional distress, thoughts of self-harm, or feel unsafe, 
+                    please contact a trusted professional immediately. This platform is for guidance, not emergency intervention.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center gap-6">
+                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl w-full sm:w-auto">
+                        <p class="text-xs font-black uppercase tracking-widest text-orange-200 mb-1">India Mental Health Helpline</p>
+                        <a href="tel:9152987821" class="text-3xl font-black hover:text-orange-200 transition">9152987821</a>
+                    </div>
+                    <span class="text-sm font-bold opacity-60">Available 24/7 • Confidential</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-phone-volume absolute -right-10 -bottom-10 text-[15rem] opacity-10 rotate-12"></i>
+        </div>
+
+        <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm flex flex-col justify-center">
+            <h4 class="font-black text-gray-800 mb-4">Why Reach Out?</h4>
+            <ul class="space-y-4 text-sm text-gray-500">
+                <li class="flex items-start gap-3">
+                    <i class="fa-solid fa-circle-check text-teal-500 mt-1"></i>
+                    <span>Reaching out is a sign of strength and self-awareness.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <i class="fa-solid fa-circle-check text-teal-500 mt-1"></i>
+                    <span>Professionals provide a safe, non-judgmental space.</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="mb-24">
+        <div class="flex items-center gap-4 mb-12">
+            <div class="h-10 w-1.5 bg-teal-600 rounded-full"></div>
+            <h2 class="text-3xl font-black text-gray-800">Platform Support</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                    For non-urgent concerns, feedback, or general questions, use this form. 
+                    Our team typically responds within 48 hours.
+                </p>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-black text-gray-400 uppercase">General Inquiries</p>
+                            <p class="font-bold text-gray-800">support@mentalhealth.edu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-gray-100 p-8 md:p-10 rounded-[2.5rem] shadow-2xl">
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-black text-gray-400 uppercase tracking-widest ml-2">Your Name</label>
+                            <input type="text" placeholder="Optional" class="w-full px-6 py-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-600 outline-none transition">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-black text-gray-400 uppercase tracking-widest ml-2">Email</label>
+                            <input type="email" placeholder="Optional" class="w-full px-6 py-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-600 outline-none transition">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-gray-400 uppercase tracking-widest ml-2">Your Message</label>
+                        <textarea rows="4" placeholder="How can we help you?" class="w-full px-6 py-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-teal-600 outline-none transition"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-teal-600 text-white font-black rounded-2xl shadow-xl shadow-teal-100 hover:bg-teal-700 transition transform hover:scale-[1.02]">
+                        Send Message <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-24 overflow-hidden">
+        <h2 class="text-center text-2xl font-black text-gray-800 mb-12">Student Experiences</h2>
+        <div class="flex gap-6 animate-scroll whitespace-nowrap">
+            {% for i in "12345" %}
+            <div class="inline-block min-w-[350px] p-8 bg-white border border-gray-50 rounded-[2rem] shadow-sm italic text-gray-600">
+                <div class="flex text-teal-400 gap-1 mb-4 text-xs">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                "The calm design and clear helpline details made me feel safe and supported during a stressful week."
+                <p class="mt-4 not-italic font-black text-gray-800 text-xs">— Anonymous Student</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="bg-gray-100/50 border border-gray-200 rounded-[2.5rem] p-10 md:p-14 text-center">
+        <div class="max-w-3xl mx-auto">
+            <h3 class="font-black text-gray-800 mb-4">Official Disclaimer</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">
+                This platform is an academic mental health support system intended for awareness and guidance. 
+                It does not replace professional clinical diagnosis, psychiatric therapy, or emergency medical services. 
+                Always consult a qualified mental health professional for medical concerns.
+            </p>
+        </div>
+    </section>
+</div>
+
+<style>
+    @keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+
+    /* Testimonial Loop Animation */
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-350px * 3)); }
+    }
+    .animate-scroll {
+        display: flex;
+        width: max-content;
+        animation: scroll 30s linear infinite;
+    }
+    .animate-scroll:hover { animation-play-state: paused; }
+</style>
+{% endblock %}

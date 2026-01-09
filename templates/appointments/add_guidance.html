@@ -1,14 +1,91 @@
-<h2>Add Guidance Message</h2>
+{% extends "base2.html" %}
+{% block title %}Add Guidance | Counsellor Portal{% endblock %}
 
-<p>
-This message will be visible to the student.
-No replies are allowed.
-</p>
+{% block content %}
+<div class="max-w-4xl mx-auto animate-fade-in pb-20">
 
-<form method="post">
-    {% csrf_token %}
-    <textarea name="guidance" rows="4" cols="50"
-              placeholder="Enter short guidance..." required></textarea>
-    <br><br>
-    <button type="submit">Save</button>
-</form>
+    <section class="mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 rounded-full text-teal-700 text-xs font-bold uppercase tracking-widest shadow-sm mb-6">
+            <i class="fa-solid fa-feather-pointed"></i> Clinical Documentation
+        </div>
+        <h1 class="text-4xl font-black text-gray-800 mb-4" style="font-family: 'Poppins', sans-serif;">
+            Post <span class="text-teal-600">Guidance</span> Message
+        </h1>
+        <p class="text-gray-500 leading-relaxed">
+            Provide empathetic, actionable feedback for your student. This message is 
+            <span class="font-bold text-gray-700">read-only</span> for the student and serves as a formal record of support.
+        </p>
+    </section>
+
+    <div class="bg-white rounded-[2.5rem] border border-gray-100 shadow-2xl shadow-teal-900/5 p-8 md:p-12 relative overflow-hidden">
+        <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center shadow-inner">
+                    <i class="fa-solid fa-comment-medical text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-black text-gray-800">Supportive Guidance</h3>
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Confidential Submission</p>
+                </div>
+            </div>
+
+            <form method="post" class="space-y-8">
+                {% csrf_token %}
+
+                <div class="relative group">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 mb-2 block">
+                        Student Message Content
+                    </label>
+                    <textarea 
+                        name="guidance" 
+                        rows="6" 
+                        required
+                        placeholder="e.g., Focus on mindfulness exercises discussed today. Take small steps regarding your exam prep..." 
+                        class="w-full p-8 bg-gray-50 border-2 border-transparent rounded-[2rem] focus:border-teal-500 focus:bg-white outline-none transition-all text-gray-700 leading-relaxed resize-none shadow-inner"
+                    ></textarea>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-4">
+                    <div class="flex items-center gap-3 text-amber-600 bg-amber-50 px-5 py-3 rounded-2xl border border-amber-100">
+                        <i class="fa-solid fa-shield-halved text-sm"></i>
+                        <p class="text-[11px] font-bold leading-tight">
+                            Messages are non-replyable to maintain <br> professional boundaries.
+                        </p>
+                    </div>
+
+                    <button type="submit" class="w-full md:w-auto px-10 py-4 bg-teal-700 text-white font-black rounded-2xl shadow-xl shadow-teal-100 hover:bg-teal-800 transition transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3">
+                        Save & Dispatch <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <i class="fa-solid fa-heart-pulse absolute -right-10 -bottom-10 text-[15rem] text-gray-50/50 -rotate-12"></i>
+    </div>
+
+    <div class="mt-12 bg-slate-900 rounded-[2rem] p-8 text-white flex flex-col md:flex-row items-center gap-8 shadow-xl">
+        <div class="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-user-shield text-2xl text-teal-400"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-teal-400 uppercase tracking-widest text-xs mb-1">Counsellor Guideline</h4>
+            <p class="text-sm text-gray-300 leading-relaxed">
+                Ensure that your guidance is specific to the student's needs. If the student indicated high risk during your session, please follow the <strong>Escalation Protocol</strong> immediately.
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes fade-in { 
+        from { opacity: 0; transform: translateY(20px); } 
+        to { opacity: 1; transform: translateY(0); } 
+    }
+    .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+
+    textarea::placeholder {
+        color: #9ca3af;
+        opacity: 0.6;
+    }
+</style>
+{% endblock %}
