@@ -340,8 +340,11 @@ We would like to thank our faculty mentors and the open-source community for pro
 # Contributors
 
 P. Lakshmi Siri – 22BQ1A42C9
+
 P. Chetan Mani Krishna – 22BQ1A42B9
+
 V. Vijay Kumar – 22BQ1A42H0
+
 V. Sravya – 22BQ1A42G9
 
 ---
