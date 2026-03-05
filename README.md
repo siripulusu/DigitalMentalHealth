@@ -1,143 +1,175 @@
 # Digital Mental Health and Psychological Support System
-AI-powered platform providing chatbot support and mental health resources for students.
-# Digital Mental Health and Psychological Support System
 
-## Overview
-
-The **Digital Mental Health and Psychological Support System** is an AI-powered platform designed to support students' mental health and emotional well-being. Many students experience stress, anxiety, academic pressure, and emotional challenges but often lack access to timely support due to stigma, lack of awareness, or limited availability of counselors.
-
-This project aims to provide **accessible, confidential, and immediate psychological assistance** through a digital platform that integrates AI-based support tools, educational resources, and crisis detection mechanisms.
-
-The system serves as a **first-level mental health support platform** that encourages students to seek help, understand their emotional state, and access reliable mental health resources.
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Django](https://img.shields.io/badge/Django-Web%20Framework-green)
+![Status](https://img.shields.io/badge/Project-Completed-success)
+![License](https://img.shields.io/badge/License-Academic-lightgrey)
 
 ---
 
-## Problem Statement
+# Overview
 
-Mental health issues among college students have significantly increased in recent years. Common problems include:
+The **Digital Mental Health and Psychological Support System** is an AI-powered web platform designed to support students' psychological well-being by providing accessible, confidential, and immediate mental health assistance.
 
-* Academic stress
-* Anxiety and depression
-* Burnout
-* Social isolation
-* Sleep disorders
-* Emotional instability
+Mental health challenges such as **stress, anxiety, depression, academic pressure, burnout, and emotional distress** have become increasingly common among students. However, many students hesitate to seek professional help due to **social stigma, lack of awareness, or limited access to counselors**.
 
-However, many institutions lack **accessible, stigma-free, and scalable mental health support systems**.
+This platform aims to bridge that gap by offering a **digital mental health support ecosystem** that integrates AI assistance, self-assessment tools, curated mental health resources, and wellness tracking.
 
-Students often hesitate to approach counselors due to:
+The system acts as a **first-level mental health support system**, helping students monitor their emotional health and seek appropriate support when needed.
+
+---
+
+# Problem Statement
+
+In modern academic environments, students face numerous mental health challenges including:
+
+* Academic pressure and performance anxiety
+* Emotional stress and burnout
+* Social isolation and loneliness
+* Sleep disturbances and unhealthy routines
+* Lack of awareness about mental health resources
+
+Despite the growing need for mental health support, many educational institutions lack **accessible and stigma-free mental health systems**.
+
+Students often avoid seeking help due to:
 
 * Fear of judgment
-* Lack of awareness
-* Limited availability of professional support
-* Social stigma around mental health
+* Lack of immediate support
+* Limited counseling availability
+* Lack of awareness about mental wellness
 
-This creates a **critical gap between students who need help and the support systems available to them**.
-
----
-
-## Objective
-
-The main objective of this project is to design and implement a **digital mental health platform** that:
-
-* Provides **instant emotional support**
-* Offers **AI-based mental health assistance**
-* Encourages students to express emotions safely
-* Detects potential mental health risks early
-* Provides access to **reliable psychological resources**
-
-The system aims to act as a **preventive mental health solution** rather than a replacement for professional counseling.
+Therefore, a **digital platform capable of providing immediate, private, and accessible mental health support is essential**.
 
 ---
 
-## Key Features
+# Objectives
 
-### 1. AI Chatbot Support
+The primary objectives of this system are:
 
-An intelligent chatbot provides students with immediate mental health support.
+* Provide **instant mental health assistance through AI-based support**
+* Encourage **mental health awareness among students**
+* Provide a **safe and confidential environment for emotional expression**
+* Help students **monitor their mental well-being**
+* Offer **self-help resources and coping strategies**
+* Guide users toward **professional help when necessary**
 
-Functions include:
+---
+
+# Key Features
+
+## AI Mental Health Companion
+
+An AI-powered chatbot provides emotional support and guidance to users.
+
+Capabilities include:
 
 * Conversational emotional support
-* Answering mental health related questions
+* Answering mental health related queries
 * Providing coping strategies
-* Guiding users toward helpful resources
+* Guiding users toward appropriate resources
 
-The chatbot acts as a **first point of interaction** for students experiencing emotional distress.
-
----
-
-### 2. Mental Health Resource Library
-
-The platform includes curated educational content such as:
-
-* Articles on stress management
-* Guides on coping with anxiety and depression
-* Meditation and relaxation techniques
-* Self-care strategies
-* Emotional wellness tips
-
-These resources help students **develop healthy coping mechanisms**.
+The chatbot serves as the **first point of contact for students experiencing emotional distress**.
 
 ---
 
-### 3. Mood Tracking System
+## Self-Assessment System
 
-Users can track their emotional state regularly through a mood logging system.
+Students can take scientifically inspired mental health assessments to evaluate their emotional well-being.
 
-Benefits:
+Examples include:
 
-* Helps users monitor emotional patterns
-* Encourages emotional awareness
-* Allows early detection of mental health changes
+* Depression screening assessments
+* Anxiety evaluation tools
+* Mental wellness check-ins
 
----
-
-### 4. Crisis Detection and Alerts
-
-The system identifies potential mental health risks through chatbot interactions and user inputs.
-
-When risk indicators appear, the system can:
-
-* Recommend professional counseling
-* Provide emergency mental health resources
-* Suggest contacting trusted individuals
-
-This feature helps **prevent severe mental health crises**.
+This helps users **understand their mental health status and track improvements over time**.
 
 ---
 
-### 5. User-Friendly Interface
+## Mood Tracking Dashboard
 
-The platform is designed with a **clean and intuitive interface** to ensure accessibility and ease of use.
+Users can log their mood regularly to track emotional patterns.
 
-Key UI design principles include:
+Benefits include:
 
-* Simplicity
-* Clarity
-* Emotional comfort
-* Minimal cognitive load
+* Monitoring mental health trends
+* Increasing emotional awareness
+* Early detection of mental health issues
 
 ---
 
-## Technology Stack
+## Resource Hub
 
-### Frontend
+The system includes a curated collection of mental health resources such as:
+
+* Breathing exercises
+* Grounding techniques
+* Sleep hygiene guidance
+* Yoga and relaxation exercises
+* Music therapy resources
+
+These resources help users **develop healthy coping strategies**.
+
+---
+
+## Appointment & Support System
+
+Students can schedule sessions or access guidance from professional support systems if needed.
+
+This feature ensures that users can **transition from digital support to professional help when required**.
+
+---
+
+## Admin Dashboard
+
+Administrators can monitor and manage platform activity through a dedicated dashboard.
+
+Admin features include:
+
+* User management
+* System analytics
+* Resource management
+* Appointment monitoring
+* Platform activity insights
+
+---
+
+# System Architecture
+
+The system follows a **client-server architecture**.
+
+User → Web Interface → Backend Server → Database → Response
+
+Process flow:
+
+1. The user interacts with the web interface.
+2. Requests are sent to the backend server.
+3. The backend processes chatbot interactions, assessments, and resource requests.
+4. Data is stored in the database.
+5. Processed responses are returned to the user interface.
+
+This architecture ensures **efficient communication and scalability**.
+
+---
+
+# Technology Stack
+
+## Frontend
 
 * HTML
 * CSS
 * JavaScript
 
-### Backend
+## Backend
 
 * Python
 * Django Framework
 
-### Database
+## Database
 
 * SQLite
 
-### Development Tools
+## Development Tools
 
 * Git
 * GitHub
@@ -145,67 +177,82 @@ Key UI design principles include:
 
 ---
 
-## System Architecture
+# Project Structure
 
-The system follows a **client-server architecture**.
+DigitalMentalHealth
+│
+├── manage.py
+├── requirements.txt
+├── README.md
+│
+├── accounts/
+├── appointments/
+├── assessments/
+├── chatbot/
+├── dashboard/
+├── pages/
+├── resources/
+│
+├── templates/
+│
+├── static/
+│   ├── css
+│   ├── js
+│   └── images
+│
+└── venv/
 
-1. The user interacts with the frontend interface.
-2. User requests are sent to the backend server.
-3. The backend processes chatbot interactions, mood data, and resource requests.
-4. Data is stored and retrieved from the database.
-5. The system returns responses to the user through the interface.
-
-This architecture ensures **efficient data processing and smooth user interaction**.
+The project follows **Django's Model-View-Template architecture**, ensuring clear separation of data, logic, and presentation layers.
 
 ---
 
-## Installation Guide
+# Installation Guide
 
-### Step 1: Clone the Repository
+## Clone Repository
 
-```
+```bash
 git clone https://github.com/siripulusu/DigitalMentalHealth.git
 ```
 
-### Step 2: Navigate to Project Directory
+## Navigate to Project Directory
 
-```
+```bash
 cd DigitalMentalHealth
 ```
 
-### Step 3: Create Virtual Environment
+## Create Virtual Environment
 
-```
+```bash
 python -m venv venv
 ```
 
-### Step 4: Activate Virtual Environment
+## Activate Virtual Environment
 
-Windows:
+Windows
 
-```
+```bash
 venv\Scripts\activate
 ```
 
-Mac/Linux:
+Mac/Linux
 
-```
+```bash
 source venv/bin/activate
 ```
 
-### Step 5: Install Dependencies
+## Install Dependencies
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
-### Step 6: Run the Server
+## Run Development Server
 
-```
+```bash
 python manage.py runserver
 ```
 
-### Step 7: Open in Browser
+## Open in Browser
 
 ```
 http://127.0.0.1:8000
@@ -213,40 +260,92 @@ http://127.0.0.1:8000
 
 ---
 
-## Future Enhancements
+# Screenshots
 
-Future improvements for the platform include:
+## Home Page
 
-* Integration with **advanced AI mental health models**
-* Sentiment analysis for better emotional understanding
+The landing page introduces the platform and allows users to start mental health assessments, access AI support, or explore services.
+
+![Home Page](screenshots/homepage.png)
+
+---
+
+## Admin Dashboard
+
+The admin panel provides system monitoring tools including user management, analytics, and platform activity insights.
+
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
+---
+
+## Student Dashboard
+
+The student dashboard displays personalized mental wellness insights, mood tracking, assessments, and AI support access.
+
+![Student Dashboard](screenshots/student-dashboard.png)
+
+---
+
+## Resource Hub
+
+The resource hub contains curated self-help tools including breathing exercises, grounding techniques, yoga practices, and sleep guidance.
+
+![Resource Hub](screenshots/resource-hub.png)
+
+---
+
+# Use Cases
+
+The platform can be used by:
+
+* College students experiencing academic stress
+* Individuals seeking emotional support
+* Educational institutions promoting mental health awareness
+* Students wanting to track their emotional well-being
+
+---
+
+# Future Enhancements
+
+Possible improvements include:
+
+* Advanced AI mental health models
+* Sentiment analysis for emotional detection
 * Anonymous peer support communities
-* Professional counselor integration
-* Mobile application version
-* AI-based personalized mental health recommendations
-
-These enhancements will make the system **more intelligent, scalable, and impactful**.
+* Mobile application development
+* Integration with professional counseling services
+* Personalized mental health recommendations
 
 ---
 
-## Impact
+# Project Impact
 
-This system aims to:
+This project aims to:
 
-* Reduce mental health stigma among students
-* Encourage early help-seeking behavior
-* Provide accessible mental health resources
-* Support emotional well-being through technology
+* Reduce mental health stigma
+* Encourage early mental health intervention
+* Provide accessible psychological resources
+* Promote emotional awareness among students
 
-By leveraging AI and digital platforms, the project contributes toward **creating healthier academic environments**.
-
----
-
-## Contributors
-
-* Siri Pulusu – Developer
+By combining **technology with mental health support**, the platform contributes toward creating **healthier academic environments**.
 
 ---
 
-## License
+# Acknowledgements
 
-This project is developed for academic purposes.
+We would like to thank our faculty mentors and the open-source community for providing tools and frameworks that supported the development of this project.
+
+---
+
+# Contributors
+
+P. Lakshmi Siri – 22BQ1A42C9
+P. Chetan Mani Krishna – 22BQ1A42B9
+V. Vijay Kumar – 22BQ1A42H0
+V. Sravya – 22BQ1A42G9
+
+---
+
+# License
+
+This project is developed for **academic and educational purposes only** and is not intended to replace professional mental health services.
